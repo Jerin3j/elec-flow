@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+.logo-text{
+    font-family: 'Open Sans', sans-serif;
+    letter-spacing: 2px;
+    font-size: 27px;
+}
+.logo-svg{
+    width: 48px;
+}
+@media (min-width: 600px){
+    .logo-text{
+        font-family: 'Open Sans', sans-serif;
+        letter-spacing: 3px;
+        font-size: 32px;
+    }
+    .logo-svg{
+        width: 55px;
+    }  
+}
