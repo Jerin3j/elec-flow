@@ -4,7 +4,7 @@ import './App.css';
 
    const App:React.FC  =() => {
     return (
-      <div className="App px-72 scroll-smooth">
+      <div className="App">
         <Home/>
       </div>
     );

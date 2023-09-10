@@ -10,12 +10,14 @@ import WhyChoose from '../Components/WhyChoose'
 const Home = () => {
   return (
     <div>
+    <div className='px-64 scroll-smooth'>
       <Header/>
       <Hero/>
       <Services/>
       <HowItWorks/>
       <WhyChoose/>
       <Testimonial/>
+      </div>
       <Footer/>
     </div>
   )
