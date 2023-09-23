@@ -18,32 +18,7 @@ const Register:React.FC = () => {
   
         <div className="register__form flex flex-col md:w-1/3 ">
           <h1 className="hidden md:block text-4xl font-poppins font-bold">Register</h1>
-      <h1 className="text-xs text-neutral-500 ml-1
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      f">(only for service providers)</h1>
+      <h1 className="hidden md:block text-xs text-neutral-500 ml-1">(only for service providers)</h1>
           <div className="register__form--inputs flex flex-col mt-6 px-4 md:px-0">
             <div className="register_form--inputs-name flex w-full justify-between gap-3 md:gap-0">
               <div className="name--input-2 relative mb-6 border rounded">
@@ -95,7 +70,7 @@ const Register:React.FC = () => {
                 >Phone number
               </label>
             </div>
-              <select className="block w-full p-2 mb-6  text-neutral-500 border border-gray-300 rounded outline-0 py-3">
+              <select className="block w-full selection: p-2 mb-6  text-neutral-500 border border-gray-200 rounded outline-0 py-3">
                 <option selected disabled className='text-neutral-700'>Choose your job</option>
                 <option className='text-neutral-600'>Electrician</option>
                 <option className='text-neutral-600'>Plumber</option>
