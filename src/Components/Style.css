@@ -25,12 +25,13 @@
     width: 90%;
     margin: auto;
   }
+  .transition-scroll{
+    transform-origin: left;
+    transition-delay: 1000ms;
+    transition-duration: 2s;
+  }
   .Hero{
     margin-top: 4em;
-    background-color: rgba(0, 0, 0, 0.952);
-    /* background-image: url('https://wallpapercave.com/wp/wp4722769.jpg'); */
-    background-repeat: no-repeat;
-    background-size: cover;
     height: 27em;
     border-radius: 6px;
     display: flex;
