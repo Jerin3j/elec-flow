@@ -76,7 +76,7 @@ const Hero:React.FC = () => {
               <BsArrowLeft size={24}/>
            </a>
            <a className="side__arrow rounded-full w-12 h-12 flex items-center justify-center bg-white absolute right-0 translate-x-1/2 cursor-pointer">
-              <BsArrowRight size={24}/>n
+              <BsArrowRight size={24}/>
            </a>
            </div>
           </div>

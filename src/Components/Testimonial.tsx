@@ -16,7 +16,7 @@ const Testimonial:React.FC = () => {
           <p className='bg-transparent p-2 md:text-xl font-poppins'>"ElecFlow made finding an electrician for my home renovation project a breeze. The platform is incredibly user-friendly, and I was connected with a skilled electrician in no time. Highly recommended!"</p>
            <div className="testimonial__all--box-profile flex items-center ml-5 mt-4 justify-between bg-transparent">
             <div className="box--profile-items flex items-center gap-7 bg-transparent">
-            <img src={require('../Media/profession-welder.png')} className='w-14 h-14 rounded-full bg-transparent' alt="" />
+            {/* <img src={require('../Media/profession-welder.png')} className='w-14 h-14 rounded-full bg-transparent' alt="" /> */}
             <span className='flex flex-col bg-transparent'>
             <h1 className='bg-transparent font-rubik text-xl'>Michael W</h1>
             <h1 className='bg-transparent'> New York</h1>
@@ -29,7 +29,7 @@ const Testimonial:React.FC = () => {
           <p className='bg-transparent p-2 md:text-xl font-poppins'>"I was skeptical about hiring services online, but ElecFlow proved me wrong. It's secure, and the service providers I've hired have been top-notch. The reviews and ratings helped me make informed decisions."</p>
            <div className="testimonial__all--box-profile flex items-center ml-5 mt-4 justify-between bg-transparent">
             <div className="box--profile-items flex items-center gap-7 bg-transparent">
-            <img src={require('../Media/profession-welder.png')} className='w-14 h-14 rounded-full' alt="" />
+            {/* <img src={require('../Media/profession-welder.png')} className='w-14 h-14 rounded-full' alt="" /> */}
             <span className='flex flex-col bg-transparent'>
             <h1 className='bg-transparent font-rubik text-xl'>Emily H</h1>
             <h1 className='bg-transparent'> New York</h1>

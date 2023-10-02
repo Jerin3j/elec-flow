@@ -9,7 +9,7 @@ const Header:React.FC = () => {
   
   const [menu, setMenu] = useState<boolean>(false)
   return (
-    <div className='Header relative md:p-2 justify- md:mt-6 border-b-2 basis-6'>
+    <div className='Header relative md:p-2 border-b-2 basis-6'>
       <Logo/>
       
       <div className="hamburger-menu md:hidden mr-3 flex gap-3 ">
