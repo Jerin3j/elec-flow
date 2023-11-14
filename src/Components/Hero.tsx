@@ -11,7 +11,7 @@ const Hero:React.FC = () => {
   <div id='slide1' className="hero-content carousel-item relative w-full">
     <div className=" text-center">
       <h1 className="text-2xl font-bold">Hello there</h1>
-      <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+      <p className="py-6">Quickly Locate Reliable Electricians and Plumbers.</p>
       <button className="btn btn-primary">Get Started</button>
       <a  className="absolute top-1/2 right-0 -translate-x-1/2 text-2xl text-theme-100">❯</a>
     </div>
@@ -42,7 +42,7 @@ const Hero:React.FC = () => {
      {/* desktop view */}
     <section className='hidden md:flex Hero mx-4 md:mx-10 relative'>
       <div className="Hero__slide bg-transparent carousel scroll-smooth">
-        <div id='slide1' className="Hero__item-1 Hero carousel-item flex flex-col md:flex-row mt-3 justify-evenly items-center bg-black min-h-fit" >
+        <div id='slide1' className="Hero__item-1 Hero -ml-7 carousel-item flex flex-col md:flex-row mt-3 justify-evenly items-center bg-black min-h-fit" >
             <Search/>
             <div className="Hero__text flex flex-col z-10 gap-4 md:w-1/2 bg-transparent " >
               <h1 className="text-3xl md:text-5xl shadow-lg font-poppins bg-transparent text-[#f8f8f8] leading-tight">

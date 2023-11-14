@@ -15,7 +15,9 @@ module.exports = {
       },
       fontFamily: {
         rubik: ['Rubik', 'sans-serif'],
-        poppins: ['Poppins', 'sans-serif']
+        poppins: ['Poppins', 'sans-serif'],
+        outfit: ['Outfit', 'sans-serif'],
+        lato: ['Lato', 'sans-serif'],
       },
     },
   },

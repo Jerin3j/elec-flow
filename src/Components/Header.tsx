@@ -3,6 +3,7 @@ import Logo from '../Pages/Logo'
 import './Style.css'
 import { BiCurrentLocation, BiMenu, BiSolidMoon, BiSolidSun, BiSolidXCircle } from "react-icons/bi";
 import { CgBookmark, CgComment, CgHome, CgInfo, CgLogIn, CgPhone, CgProfile } from "react-icons/cg";
+import { Link } from "react-router-dom";
 
 
 const Header:React.FC = () => {
@@ -58,15 +59,14 @@ const Header:React.FC = () => {
       <div className="Options hidden md:flex justify-evenly gap-56">
         <div className="Options__text flex gap-6 items-center">
           <h1 className="text-base font-rubik cursor-pointer bg-transparent hover:text-[#28CC9E] active:drop-shadow-xl">Home</h1>
-          <h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E]">About</h1>
-          <h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E]">Plumbers</h1>
+          <Link to={'/service-providers'}><h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E]">Plumbers</h1></Link>
           <h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E]">Electricians</h1>
           <h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E]">Our team</h1>
           <h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E]">Contact</h1>
         </div>
         <div className="Options__icons--notLoginned flex gap-4 font-rubik">
-          <button className="outline-none hover:text-theme-200">Sign in</button>
-          <button className="bg-[#28CC9E] text-white py-3 px-3 rounded drop-shadow-md hover:drop-shadow-lg">Register</button>
+          <Link to={"/signin"} unstable_viewTransition><button className="outline-none hover:text-theme-200 mt-3">Sign in</button></Link>
+          <Link to={"/register"}><button className="bg-[#28CC9E] text-white py-3 px-3 rounded drop-shadow-md hover:drop-shadow-lg">Register</button></Link>
         </div>
         {/* <div className='Options__profile--logined icons flex gap-4'>
         <BiCurrentLocation size={33} className='cursor-pointer'/>
