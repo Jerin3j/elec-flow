@@ -1,16 +1,68 @@
 import React, { useState } from 'react'
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
-import {  } from "tw-elements";
+import supabase from '../../Config/supabaseClient';
+import { useNavigate } from 'react-router';
 const SignUp:React.FC = () => {
 
   const [visible, setVisible] = useState<boolean>(false)
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [ConfirmPassword, setConfirmPassword] = useState<string>('')
+  const navigate = useNavigate()
+
+  async function Sign_Up() {
+    try {
+      const { data, error } = await supabase.auth.signUp({ 
+        email,
+        password,
+        options: {data: {password,}
+      } 
+      });
+      console.log('User signed up:');
+      navigate("/");
+
+      // Get new user details
+      const { data:{user}, } = await supabase.auth.getUser()
+      let user_uuid = user?.id
+      console.log(user_uuid);
+      
+      // Insert new user data to 'users' table with auth uuid
+      const { data : InsertData, error: InsertError } = await supabase
+      .from('users')
+      .insert([
+    {  'uuid': user_uuid,
+        email,
+        password },
+  ])
+    } catch (error) {
+      console.error('Signup failed:', error);
+    }
+  };
+  
+  const GoogleAuth =async ()=>{
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+    })
+    const { data:{user}, } = await supabase.auth.getUser()
+    let user_uuid = user?.id
+    console.log(user_uuid);
+    const { data : InsertData, error: InsertError } = await supabase
+      .from('users')
+      .insert([
+    {  'uuid': user_uuid,
+        email,
+        password },
+  ])
+  }
+
+  
   return (
     <section className='Sign-Up'>
     <div className="signup flex flex-col md:flex-row flex-wrap items-center justify-evenly md:h-screen">
     <h1 className="text-3xl font-poppins font-bold md:hidden">Sign Up</h1>
       <div className="signup__image  relative">
         <img
-          src={require('../Media/signUp.png')}
+          src={require('../../Media/signUp.png')}
           className="w-56 md:w-full"
           alt="Sample image" />
       </div>
@@ -47,6 +99,7 @@ const SignUp:React.FC = () => {
           </div>
         <div className="email__input relative mb-6 border rounded">
             <input
+              onChange={(e)=>setEmail(e.target.value)}
               type="email"
               className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
               id="exampleFormControlInput2"
@@ -71,6 +124,7 @@ const SignUp:React.FC = () => {
           </div>
         <div className="password__input--1 relative mb-6 border rounded">
             <input
+              onChange={(e)=>setPassword(e.target.value)}
               type = {visible? "text" : "password"} unselectable='off' 
               className="peer block min-h-[auto] w-full select-none rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
               id="pass"
@@ -86,6 +140,7 @@ const SignUp:React.FC = () => {
           </div>
           <div className="password__input--2 relative mb-6 border rounded">
             <input
+              onChange={(e)=>setConfirmPassword(e.target.value)}
               type = {visible? "text" : "password"}
               className="peer block min-h-[auto] w-full  select-none rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
               id="pass"
@@ -99,6 +154,10 @@ const SignUp:React.FC = () => {
               {visible ? <BsFillEyeFill/> : <BsFillEyeSlashFill/>}
               </span>
           </div>
+          {password == ConfirmPassword? 
+            null: (
+              <i className='text-sm text-danger-600'>Your Password is not same!</i>
+            )}
         </div>
         <div className="signup__form--texts flex justify-between px-3 md:px-0">
           <div className="remember-checkbox flex items-center gap-1 md:gap-2">
@@ -108,14 +167,19 @@ const SignUp:React.FC = () => {
           <p className="transition duration-150 ease-in-out text-sm md:text-base text-blue-600 hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600 cursor-pointer">Forgot Password?</p>
         </div>
         <div className="signup__form--footer flex flex-col gap-3 mt-5">
-        <button type='button' className="sigin__form--btn btn w-40 md:w-1/2 self-center select-none uppercase btn-accent hover:bg-theme-100 hover:drop-shadow-lg border-none cursor-pointer" data-te-ripple-init
+        <button
+         onClick={Sign_Up}
+         type='button' 
+         className="sigin__form--btn btn w-40 md:w-1/2 self-center select-none uppercase btn-accent hover:bg-theme-100 hover:drop-shadow-lg border-none cursor-pointer" data-te-ripple-init
          data-te-ripple-color="light"
          data-te-submit-btn-ref>
             Sign in
          </button>
           <h1 className="Or text-black text-center font-rubik md:text-lg font-semibold">OR</h1>
           <div className="signup__form--sm-btns flex gap-7 justify-center items-center">
-             <button className="sigin__form--btn mask mask-squircle uppercase shadow-xl border-none hover:drop-shadow-2x cursor-pointer">
+             <button
+             onClick={GoogleAuth}
+              className="sigin__form--btn mask mask-squircle uppercase shadow-xl border-none hover:drop-shadow-2x cursor-pointer">
              <img className='w-5 h-5 md:w-9 md:h-9 ' src="https://www.freepnglogos.com/uploads/google-favicon-logo-20.png" alt='google_logo'/>
              </button>
              <button className="sigin__form--btn mask mask-squircle uppercase text-black shadow-xl border-none hover:drop-shadow-2x cursor-pointer">

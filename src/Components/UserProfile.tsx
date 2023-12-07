@@ -1,10 +1,40 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import { FaArrowLeft, FaPhone, FaVoicemail,  } from "react-icons/fa";
 import { FaMapLocation, FaMapLocationDot, FaMapPin } from 'react-icons/fa6';
 import "../Media/Icons/loactionIcon.png"
 import { Link, Navigate ,} from 'react-router-dom';
+import { SupabaseClient,PostgrestResponse } from '@supabase/supabase-js';
+import { Database } from "../Types/supaTypes";
+interface UserProfileProps {
+  supabase : SupabaseClient
+}
 
-const UserProfile:React.FC = () => {
+
+const UserProfile:React.FC<UserProfileProps> = ({supabase}) => {
+  useEffect(() => {
+    async function fetchRecords() {
+       try {
+      
+         const {data, error}: PostgrestResponse<any> = await supabase
+        .from("ef-users")
+         .select("*")
+
+        if (data) {
+          console.log('Fetched records:', data);
+         } else {
+           console.error('Error fetching records:', error);
+          //Now 'data' is an array of 'EfUser' objects
+        }
+        } catch (error) {
+          console.error('An unexpected error occurred:', error);
+         }
+    } 
+
+    fetchRecords();
+    
+  }, []); // Ensure this effect runs when `supabase` changes
+
+ 
   return (
     <div className='User_profile h-screen'>
       <div className="Header_items flex justify-between items-center p-2 px-4 pt-2md:p-5 md:px-10">

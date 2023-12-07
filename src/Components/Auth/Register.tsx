@@ -11,7 +11,7 @@ const Register:React.FC = () => {
       <h1 className="text-[10px] text-neutral-500 md:hidden">(only for service providers)</h1>
         <div className="register__image  relative">
           <img
-            src={require('../Media/signUp.png')}
+            src={require('../../Media/signUp.png')}
             className="w-56 md:w-full"
             alt="Sample image" />
         </div>

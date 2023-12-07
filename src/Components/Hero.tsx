@@ -10,7 +10,7 @@ const Hero:React.FC = () => {
   <div className="carousel md:hidden h-64 mt-8 mx-2 rounded shadow-lg">
   <div id='slide1' className="hero-content carousel-item relative w-full">
     <div className=" text-center">
-      <h1 className="text-2xl font-bold">Hello there</h1>
+      <h1 className="text-2xl font-bold">Hello there,</h1>
       <p className="py-6">Quickly Locate Reliable Electricians and Plumbers.</p>
       <button className="btn btn-primary">Get Started</button>
       <a  className="absolute top-1/2 right-0 -translate-x-1/2 text-2xl text-theme-100">❯</a>

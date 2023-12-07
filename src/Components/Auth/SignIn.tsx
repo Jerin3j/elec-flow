@@ -1,16 +1,29 @@
 import React, { useState } from 'react'
-import { BiLogoFacebook, BiLogoGoogle } from 'react-icons/bi'
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs'
+import supabase from '../../Config/supabaseClient'
+import { Link } from 'react-router-dom';
 
 const SignIn:React.FC = () => {
   const [visible, setVisible] = useState<boolean>(false)
+
+  const GoogleAuth =async ()=>{
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
+      },
+    })
+  }
   return (
     <section className='Sign-In'>
     <div className="signin flex flex-col md:flex-row flex-wrap items-center justify-evenly md:h-screen">
     <h1 className="text-3xl font-poppins font-bold md:hidden">Sign In</h1>
       <div className="sigin__image  relative">
         <img
-          src={require('../Media/signIn.png')}
+          src={require('../../Media/signIn.png')}
           className="w-56 md:w-full"
           alt="Sample image" />
       </div>
@@ -57,7 +70,7 @@ const SignIn:React.FC = () => {
         <button className="sigin__form--btn btn w-40 md:w-1/2 self-center select-none uppercase btn-accent hover:bg-theme-100 hover:drop-shadow-lg border-none cursor-pointer">Sign in</button>
           <h1 className="Or text-black text-center font-rubik md:text-lg font-semibold ">OR</h1>
           <div className="signup__form--sm-btns flex gap-7 justify-center items-center">
-             <button className="sigin__form--btn mask mask-squircle uppercase shadow-xl border-none hover:drop-shadow-2x cursor-pointer">
+             <button onClick={GoogleAuth} className="sigin__form--btn mask mask-squircle uppercase shadow-xl border-none hover:drop-shadow-2x cursor-pointer">
              <img className='w-5 h-5 md:w-9 md:h-9 ' src="https://www.freepnglogos.com/uploads/google-favicon-logo-20.png" alt='google_logo'/>
              </button>
              <button className="sigin__form--btn mask mask-squircle uppercase text-black shadow-xl border-none hover:drop-shadow-2x cursor-pointer">
@@ -67,9 +80,11 @@ const SignIn:React.FC = () => {
               <img className='w-4 h-4 md:w-8 md:h-8 drop-shadow-md' src="https://www.freepnglogos.com/uploads/512x512-logo-png/512x512-logo-github-icon-35.png" alt="gh_logo" />
              </button>
           </div>
+          <Link to={'/signup'}>
           <span className='text-sm text-neutral-800 '>Are you willing to Sign in? Do
           <span className='text-blue-600 cursor-pointer'> Sign up</span>
           .</span>
+          </Link>
         </div>
       </div>
 

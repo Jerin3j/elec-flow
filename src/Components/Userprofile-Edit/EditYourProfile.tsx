@@ -2,7 +2,7 @@ import React from 'react'
 import { FaArrowLeft, FaX } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
 
-const EditYourProfile = () => {
+const EditYourProfile:React.FC = () => {
   return (
     <div className='Edit_your_Profile h-screen'>
       <div className="Header_items flex justify-between items-center p-2 px-4 pt-2 md:p-5 md:px-10">
