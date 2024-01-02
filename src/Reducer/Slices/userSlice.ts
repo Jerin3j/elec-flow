@@ -1,7 +1,8 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 export interface User{   //The auth user type to store
-    id: number,
+    uuid: string,
     email: string,
+    checkuuid: string | null,
 }
 interface UserState{
     userDetails: User | null   
@@ -9,6 +10,7 @@ interface UserState{
 const initialState: UserState = {
     userDetails: null,
 }
+console.log(initialState.userDetails?.uuid);
 
 export const UserSlice = createSlice({
     name: 'user',
@@ -16,11 +18,17 @@ export const UserSlice = createSlice({
     reducers:{
         addUserIdentity: (state, action : PayloadAction<User>)=>{
             state.userDetails = action.payload;
+        },
+        setCheckUuid: (state, action: PayloadAction<string | null>) => {
+            if (state.userDetails) {
+                state.userDetails = { ...state.userDetails, checkuuid: action.payload };; // get seperatly store uuid by type of string
+            }
         }
+        
     },
 })
 
 console.log("initialState", initialState.userDetails);
 
 export default  UserSlice.reducer
-export const {addUserIdentity} = UserSlice.actions
+export const {addUserIdentity, setCheckUuid} = UserSlice.actions

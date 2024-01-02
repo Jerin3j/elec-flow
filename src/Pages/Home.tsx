@@ -1,11 +1,11 @@
 import React from 'react'
 import Footer from '../Components/Footer'
-import Header from '../Components/Header'
-import Hero from '../Components/Hero'
-import HowItWorks from '../Components/HowItWorks'
-import Services from '../Components/Services'
-import Testimonial from '../Components/Testimonial'
-import WhyChoose from '../Components/WhyChoose'
+import Header from '../Components/User/User_Home/Header'
+import Hero from '../Components/User/User_Home/Hero'
+import HowItWorks from '../Components/User/User_Home/HowItWorks'
+import Services from '../Components/User/User_Home/Services'
+import Testimonial from '../Components/User/User_Home/Testimonial'
+import WhyChoose from '../Components/User/User_Home/WhyChoose'
 
 const Home = () => {
   return (

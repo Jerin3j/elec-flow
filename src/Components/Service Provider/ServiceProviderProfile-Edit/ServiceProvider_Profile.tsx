@@ -1,9 +1,46 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaArrowLeft } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
+import { Database } from '../../../Types/supaTypes'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../Reducer/Slices/store'
+import { PostgrestResponse } from '@supabase/supabase-js'
+import supabase from '../../../Config/supabaseClient'
 
-const ServiceProvider_Profile = () => {
+
+const ServiceProvider_Profile:React.FC = () => {
+
+  const [serviceProviderData, setServiceProviderData] = useState<Database['public']['Tables']['service-providers']['Row'][] | null>(null)
+  const authUser = useSelector((state: RootState) => state.authUser.userDetails); // get authUser details from redux-state
+  const checkuuid = useSelector((state: RootState) => state.authUser?.userDetails?.checkuuid);
+  const uuid : string  = authUser && Array.isArray(authUser) && authUser.length > 0 ? authUser[0].id : null // take the uuid from user details
+    
+  useEffect(() => {
+    async function fetchRecords() {
+        try {
+          const {data, error}: PostgrestResponse<Database['public']['Tables']['service-providers']['Row'][] >  = await supabase // Fetching auth user's row
+           .from("service-providers")
+           .select()
+           .eq('uuid', checkuuid)
+
+           if (error) {
+           console.error('Error fetching data:', error);
+         } else {
+           setServiceProviderData(data.flat())
+         }
+           } catch (error) {
+             console.error('An unexpected error occurred:', error);
+           }
+        } 
+       fetchRecords();
+    }, [authUser]); // Ensure this effect runs when `supabase` changes
+
+ console.log("serviceProviderData ::",serviceProviderData);
+ 
   return (
+     <>
+     {
+      serviceProviderData?.map((provider =>(
      <div className='ServiceProvider_Profile h-screen pt-52'>
       {/* <div className="Header_items flex justify-between items-center p-2 px-4 pt-2 md:p-5 md:px-10">
         <div className="header__username flex items-center gap-2 ">
@@ -23,15 +60,15 @@ const ServiceProvider_Profile = () => {
         </div>
       <div className='Hr_line bg-[#1f2937] h-80 w-0.5'></div>
       <div className="Profile__contact_details flex flex-col items-start md:mt-2 gap-2 md:gap-3">
-       <h1 className="SP__Name font-poppins text-7xl md:text-7xl font-bold">John dae</h1>
-       <h1 className="proffesion text-2xl font-lato">Profession - Electrician</h1>
+       <h1 className="SP__Name font-poppins text-7xl md:text-7xl font-bold capitalize">{provider.first_name+" "+provider.last_name}</h1>
+       <h1 className="proffesion text-2xl font-lato">Profession - {provider.job}</h1>
         <div className="User-phone flex gap-3 justify-center items-center">
-          <img className='w-5 h-5 md:w-8 md:h-8' src={require('../Media/Icons/phoneIcon.png')} alt="" />
-          <h1 className="font-lacto md:text-2xl font-semibold">919526941079</h1>
+          <img className='w-5 h-5 md:w-8 md:h-8' src={require('../../../Media/Icons/phoneIcon.png')} alt="" />
+          <h1 className="font-lacto md:text-2xl font-semibold">{provider.phonenumber}</h1>
         </div>
         <div className="User-email flex gap-3 justify-center items-center ">
-          <img className='w-5 h-5 md:w-8 md:h-8' src={require('../Media/Icons/gmailIcon.png')} alt="" />
-          <h1 className="font-lato md:text-2xl font-semibold">jerinjj202@gmail.com</h1>
+          <img className='w-5 h-5 md:w-8 md:h-8' src={require('../../../Media/Icons/gmailIcon.png')} alt="" />
+          <h1 className="font-lato md:text-2xl font-semibold">{provider.email}</h1>
         </div>
         <div className="SP__rating rating rating-md">
               <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
@@ -59,7 +96,10 @@ const ServiceProvider_Profile = () => {
       </div> */}
       </div>
     </div>
-  )
+    )))
+      }
+     </>
+     )
 }
 
 export default ServiceProvider_Profile

@@ -14,21 +14,21 @@ const WhyChoose:React.FC = () => {
         </div>
         <div className="choose__two flex flex-col gap-4 md:gap-9 mx-2 md:mx-0">
           <div className="choose_text-1 flex">
-          <img className='h-20 w-20 self-center' src={require('../Media/Icons/Experience.png')} alt="" />
+          <img className='h-20 w-20 self-center' src={require('../../../Media/Icons/Experience.png')} alt="" />
             <div className='flex flex-col gap-1 md:gap-3'>
             <h1 className="text-lg md:text-xl font-rubik font-bold tracking-wide">Expertise and Experience</h1>
             <h1 className="md:text-lg md:w-3/4 tracking-wide font-poppins">Our team comprises highly skilled professionals with years of experience, ensuring top-notch service and reliable solutions for your needs.</h1>
             </div>
             </div>
             <div className="choose_text-2 flex">
-            <img className='h-20 w-20 self-center' src={require('../Media/Icons/CustomerApproach.png')} alt="" />
+            <img className='h-20 w-20 self-center' src={require('../../../Media/Icons/CustomerApproach.png')} alt="" />
             <div className='flex flex-col gap-1 md:gap-3'>
             <h1 className="text-lg md:text-xl font-rubik font-bold">Customer-Centric Approach</h1>
             <h1 className="md:text-lg md:w-3/4 font-poppins">We prioritize your satisfaction, offering personalized service, transparent communication, and a commitment to meeting and exceeding your expectations.</h1>
             </div>
             </div>
             <div className="choose_text-2 flex">
-            <img className='h-20 w-20 self-center' src={require('../Media/Icons/Quality.png')} alt="" />
+            <img className='h-20 w-20 self-center' src={require('../../../Media/Icons/Quality.png')} alt="" />
             <div className='flex flex-col gap-1 md:gap-3'>
             <h1 className="text-lg md:text-xl font-rubik font-bold">Quality Assurance</h1>
             <h1 className="md:text-lg md:w-3/4 font-poppins">Rest easy knowing that we adhere to the highest industry standards, providing quality workmanship and utilizing top-grade materials to deliver lasting results.</h1>

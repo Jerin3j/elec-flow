@@ -1,11 +1,33 @@
 import React from 'react'
 import Search from './Search'
-import './Style.css'
+import '../../Style.css'
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import { BiLocationPlus } from 'react-icons/bi';
 
 const Hero:React.FC = () => {
   return (
-  <>
+  <div className='Hero Section mt-32 mb-32'>
+
+    <div className="Hero__with-user circle__blob relative flex">
+      <div className="circle__blob-inner flex flex-col items-center justify-start w-auto absolute pt10 h-32">
+        <h1 className='font-poppins font-semibold text-4xl -mt-7 self-start'>Hello,</h1>
+        <h1 className="font-poppins font-semibold text-3xl capitalize self-end">Jerin jerome</h1>
+      </div>
+      <form className="Selectionn bg-transparent absolute right-56 top-64 text-black flex flex-col gap-4">
+      <h1 className="text-7xl font-poppins bg-transparent font-bold">Search Nearby,</h1>
+       <div className="radio_selection flex justify-evenly bg-transparent">
+        <label htmlFor="plumbers" className='bg-transparent font-outfit text-4xl flex items-center justify-center'>Plumbers
+         <input type="radio" id='plumbers' value='Plumbers'/>
+        </label>
+        <label htmlFor="electricians" className='bg-transparent font-outfit text-4xl items-center'>Electricians
+         <input type="radio" id="electricians" value="Electricians"/>
+        </label>
+        </div> 
+        <button className="self-center bg-transparent"><BiLocationPlus className='bg-transparent' size={40}/></button>
+      </form>
+    </div>
+
+    {/* <div className="Hero__without_user">
   <span className='md:hidden'><Search/></span>
   <div className="carousel md:hidden h-64 mt-8 mx-2 rounded shadow-lg">
   <div id='slide1' className="hero-content carousel-item relative w-full">
@@ -40,7 +62,7 @@ const Hero:React.FC = () => {
 </div>
 
      {/* desktop view */}
-    <section className='hidden md:flex Hero mx-4 md:mx-10 relative'>
+    {/* <section className='hidden md:flex Hero mx-4 md:mx-10 relative'>
       <div className="Hero__slide bg-transparent carousel scroll-smooth">
         <div id='slide1' className="Hero__item-1 Hero -ml-7 carousel-item flex flex-col md:flex-row mt-3 justify-evenly items-center bg-black min-h-fit" >
             <Search/>
@@ -82,8 +104,9 @@ const Hero:React.FC = () => {
           </div>
           
       
-    </section>
-    </>
+    </section> 
+    </div>  */}
+    </div>
   )
 }
 

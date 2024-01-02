@@ -47,3 +47,25 @@
   .side__arrow:hover{
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.56);
   }
+  .circle__blob{
+      padding: 5%;
+      width: 85em;
+      height: 40em;
+      margin: -15px;
+      mix-blend-mode: multiply;
+      background: linear-gradient(45deg, #ff04 0%, #00ff00 100%);
+        border-radius: 60% 80% 30% 70% / 60% 38% 70% 40%;
+  }
+  .circle__blob-inner{
+    margin-top: 2em;
+    margin-left: 4em;
+    mix-blend-mode: multiply;
+    border-radius: 60% 80% 30% 70% / 60% 38% 70% 40%;
+    padding:7%;
+    background-color: blue;
+    
+  }
+  .circle__blob-inner h1{
+    background: none;
+    color: white;
+  }
