@@ -63,11 +63,11 @@ const ServiceProviders:React.FC = () => {
       <div  className="ServiceProviders flex flex-col gap-7 h-screen p-5">
         <div className="header__Sp">
         <div className="ServiceProviders__Text ml-3">
-            <h1 className="text-5xl font-poppins font-bold text-center">Service Providers</h1>
+            <h1 className="text-2xl md:text-5xl font-poppins font-bold text-center">Service Providers</h1>
         </div>
         <select 
         onChange={e=>setSort(e.target.value)}
-        className='ServiceProviders__Sort absolute right-7 top-6 border-2 rounded px-1 py-1' name="" id="" >
+        className='ServiceProviders__Sort absolute right-7 top-6 border-2 rounded px-1 py-1 mt-7 w-20 md:w-auto text-sm md:text-base' name="" id="" >
               <option disabled selected>Sort By</option>
               <option value="">Electricians</option>
               <option value="">Plumbers</option>
@@ -75,21 +75,21 @@ const ServiceProviders:React.FC = () => {
         </div>
             {/* Body */}
      { serviceProviderData?.map(((provider, id) =>(
-        <div key={id} className="ServiceProviders__List flex px-3 gap-8 mb-4 items-center">
-         <h1 className='capitalize font-rubik text-2xl'>{id+1}</h1>
+        <div key={id} className="ServiceProviders__List flex px-3 gap-4 md:gap-8 mb-4 items-center">
+         <h1 className='capitalize font-rubik md:text-2xl'>{id+1}</h1>
          {/* <Link to={'/sp-profile'}> */}
-          <img onClick={()=>viewProvider(provider.uuid)} className='serviceProvider-profile rounded-full h-16 w-16 drop-shadow-xl' src="https://imgs.search.brave.com/BN_fhov3dztUsUTDPT0l446WqsYOYmdxKtg9hgpa45M/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/dGhlZmFtb3VzcGVv/cGxlLmNvbS9wcm9m/aWxlcy90aHVtYnMv/amFjay1kb3JzZXkt/NjQ1MC0xLmpwZw" alt="" />
+          <img onClick={()=>viewProvider(provider.uuid)} className='serviceProvider-profile rounded-full h-9 w-9 md:h-16 md:w-16 drop-shadow-xl cursor-pointer' src="https://imgs.search.brave.com/BN_fhov3dztUsUTDPT0l446WqsYOYmdxKtg9hgpa45M/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/dGhlZmFtb3VzcGVv/cGxlLmNvbS9wcm9m/aWxlcy90aHVtYnMv/amFjay1kb3JzZXkt/NjQ1MC0xLmpwZw" alt="" />
            {/* </Link> */}
            <div className="ServiceProviders__List-name-email">
-             <h1 className='text-3xl font-outfit capitalize'>{ provider.first_name+' '+provider.last_name +' - '+ provider.job}</h1>
-             <h1 className='text-sm font-poppins text-neutral-600'>( {provider.email} )</h1>
+             <h1 className='text- md:text-3xl font-outfit capitalize'>{ provider.first_name+' '+provider.last_name +' - '+ provider.job}</h1>
+             <h1 className='hidden md:block text-xs md:text-sm font-poppins text-neutral-600'>( {provider.email} )</h1>
             </div>
-            <div className="rating ml-6">
-              <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-              <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-              <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-              <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" checked/>
-              <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+            <div className="rating md:ml-6 w-20 md:w-auto">
+              <input type="radio" name="rating-2" className="mask  mask-star-2 bg-orange-400" />
+              <input type="radio" name="rating-2" className="mask  mask-star-2 bg-orange-400" />
+              <input type="radio" name="rating-2" className="mask  mask-star-2 bg-orange-400" />
+              <input type="radio" name="rating-2" className="mask  mask-star-2 bg-orange-400" checked/>
+              <input type="radio" name="rating-2" className="mask  mask-star-2 bg-orange-400" />
             </div>
         </div>
         )))}

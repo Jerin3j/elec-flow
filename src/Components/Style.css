@@ -34,11 +34,9 @@
     transition-duration: 2s;
   }
   .Hero{
-    margin-top: 4em;
-    height: 27em;
     border-radius: 6px;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
   }
   .side__arrow{
     outline: none;
@@ -51,7 +49,7 @@
       padding: 5%;
       width: 85em;
       height: 40em;
-      margin: -15px;
+      /* margin: -15px; */
       mix-blend-mode: multiply;
       background: linear-gradient(45deg, #ff04 0%, #00ff00 100%);
         border-radius: 60% 80% 30% 70% / 60% 38% 70% 40%;

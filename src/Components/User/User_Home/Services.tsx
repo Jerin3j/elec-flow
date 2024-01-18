@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Services:React.FC = () => {
   return (
-    <section className='Services mt-12 md:mt-24 '>
+    <section className='Services'>
       <h1 className='font-poppins text-center font-bold text-2xl md:text-5xl text-[#010103]'>Our Services</h1>
       <div className="services flex justify-evenly mt-3 md:mt-10">
         <Link to={'/elecflow-electricians'}>

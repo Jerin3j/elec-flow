@@ -1,70 +1,104 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Search from './Search'
 import '../../Style.css'
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { BiLocationPlus } from 'react-icons/bi';
+import { Database } from '../../../Types/supaTypes';
+import { RootState } from '../../../Reducer/Slices/store';
+import { useSelector } from 'react-redux';
+import { PostgrestResponse } from '@supabase/supabase-js';
+import supabase from '../../../Config/supabaseClient';
+import { Link } from 'react-router-dom';
 
 const Hero:React.FC = () => {
-  return (
-  <div className='Hero Section mt-32 mb-32'>
+  const [userData, setUserData] = useState<Database['public']['Tables']['users']['Row'][] | null>()
+  const authUser = useSelector((state:RootState) => state.authUser.userDetails)
+  const uuid : string = authUser && Array.isArray(authUser) && authUser.length > 0 ? authUser[0].id : null
 
-    <div className="Hero__with-user circle__blob relative flex">
+  useEffect(()=>{
+    const fetchRecords = async()=>{
+    try{
+      const {data, error}: PostgrestResponse<Database['public']['Tables']['users']['Row'][] >  = await supabase
+      .from("users")
+      .select()
+      .eq('uuid',uuid)
+      
+      if (error) {
+        console.error('Error fetching data:', error);
+      } else {
+        setUserData(data.flat())
+      }
+       }
+       catch (error) {
+          console.error('An unexpected error occurred:', error);
+        }
+  }
+  fetchRecords();
+  }, [authUser, uuid])
+  return (
+  <div className='Hero Section py-8 md:py-12 '>
+{    userData?
+   ( userData.map(user => 
+   (<>
+   <div className="Hero__with-user circle__blob relative flex flex-col items-start md:hidden h-60 mx-1">
+   <div className="circle__blob-inner flex flex-col items-start justify-start w-28 h-20">
+     <h1 className='font-poppins font-semibold text-xl -mt-2 self-start'>Hello,</h1>
+     <h1 className="font-poppins font-semibold capitalize self-end">{user.first_name}</h1>
+   </div>
+   <form className="Selectionn bg-transparent text-black flex flex-col gap-1 self-end">
+   <h1 className="text-xl font-poppins bg-transparent font-bold">Search Nearby,</h1>
+    <div className="radio_selection flex justify-between gap-2 bg-transparent">
+     <label htmlFor="plumbers" className='bg-transparent font-outfit gap-1 flex items-center justify-center flex-row'>Plumbers
+      <input className=' radio-secondary radio-[2px]' type="radio" name='radio1' checked/>
+     </label>
+     <label htmlFor="electricians" className='bg-transparent font-outfit flex gap-1 items-center justify-center'>Electricians
+      <input className='radio-primary radio-[2px]' type="radio" name='radio1'/>
+     </label>
+     </div> 
+     <button className="self-center bg-transparent flex gap-0.5 text-xl font-lato font-bold text-red-600 underline underline-offset-2 ">Locate 
+     <BiLocationPlus className='bg-transparent' size={28}/></button>
+   </form>
+ </div>
+     {/* Desktop mode */}
+   <div className="Hero__with-user circle__blob relative hidden md:flex">
       <div className="circle__blob-inner flex flex-col items-center justify-start w-auto absolute pt10 h-32">
         <h1 className='font-poppins font-semibold text-4xl -mt-7 self-start'>Hello,</h1>
-        <h1 className="font-poppins font-semibold text-3xl capitalize self-end">Jerin jerome</h1>
+        <h1 className="font-poppins font-semibold  text-3xl capitalize self-end ml-2">{user.first_name}</h1>
       </div>
-      <form className="Selectionn bg-transparent absolute right-56 top-64 text-black flex flex-col gap-4">
+      <form className="Selectionn bg-transparent absolute  lg:right-56 top-64 text-black flex flex-col gap-5">
       <h1 className="text-7xl font-poppins bg-transparent font-bold">Search Nearby,</h1>
        <div className="radio_selection flex justify-evenly bg-transparent">
-        <label htmlFor="plumbers" className='bg-transparent font-outfit text-4xl flex items-center justify-center'>Plumbers
-         <input type="radio" id='plumbers' value='Plumbers'/>
+        <label htmlFor="plumbers" className='bg-transparent font-outfit text-4xl flex items-center justify-center flex-row'>Plumbers
+         <input type="radio" name='radio1' checked/>
         </label>
         <label htmlFor="electricians" className='bg-transparent font-outfit text-4xl items-center'>Electricians
-         <input type="radio" id="electricians" value="Electricians"/>
+         <input type="radio" name='radio1'/>
         </label>
         </div> 
-        <button className="self-center bg-transparent"><BiLocationPlus className='bg-transparent' size={40}/></button>
+        <button className="self-center bg-transparent flex gap-1 text-3xl font-lato font-bold text-red-600 underline underline-offset-2 mt-7">Locate 
+        <BiLocationPlus className='bg-transparent' size={36}/></button>
       </form>
     </div>
-
-    {/* <div className="Hero__without_user">
+    </>)))
+    :
+    
+    (<div className="Hero__without_user">
   <span className='md:hidden'><Search/></span>
-  <div className="carousel md:hidden h-64 mt-8 mx-2 rounded shadow-lg">
-  <div id='slide1' className="hero-content carousel-item relative w-full">
+  <div className="for_mobile  md:hidden h-64 mx-2 rounded shadow-lg">
+  <div id='slide1' className="hero-content relative w-full">
     <div className=" text-center">
       <h1 className="text-2xl font-bold">Hello there,</h1>
       <p className="py-6">Quickly Locate Reliable Electricians and Plumbers.</p>
-      <button className="btn btn-primary">Get Started</button>
-      <a  className="absolute top-1/2 right-0 -translate-x-1/2 text-2xl text-theme-100">❯</a>
-    </div>
-  </div>
-  <div id="slide2" className="carousel-item relative w-full">
-    <img src="https://imgs.search.brave.com/33WB5KG5py80p3nzkZyDcJHcNM0NVdy8l0h23_AStOY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvNTI5/NzcwNjgzL3Bob3Rv/L3lvdW5nLXBsdW1i/ZXItd2l0aC1jbGlw/LWJvYXJkLmpwZz9z/PTYxMng2MTImdz0w/Jms9MjAmYz1mTkJH/MHgtRkpwUjR2dHUw/X2VXZUVLMmQ4S1p2/S1ZtZ2F3cE9fX0w3/NW00PQ" className="w-full" />
-    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 bg-transparent">
-      <a href="#slide1" className="btn text-theme-100">❮</a> 
-      <a href="#slide3" className="btn text-theme-100">❯</a>
-    </div>
-  </div> 
-  <div id="slide3" className="carousel-item relative w-full">
-    <img src="https://imgs.search.brave.com/dWsjrlqO_XuU3K-zPBgzGLePG1biJ2Eq1FFUoQtdVu0/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9lbXBp/cmUtczMtcHJvZHVj/dGlvbi5ib2J2aWxh/LmNvbS9hcnRpY2xl/cy93cC1jb250ZW50/L3VwbG9hZHMvMjAy/MS8wMS9UaGUtQmVz/dC1FbGVjdHJpY2lh/bi1OZWFyLU1lLURv/LUktTmVlZC1hbi1F/bGVjdHJpY2lhbi02/NTB4NDM0LmpwZw" className="w-full" />
-    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 bg-transparent">
-      <a href="#slide2" className="btn text-theme-100">❮</a> 
-      <a href="#slide4" className="btn text-theme-100">❯</a>
-    </div>
-  </div> 
-  <div id="slide4" className="carousel-item relative w-full">
-    <img src="https://imgs.search.brave.com/9CAuAnCHqLDiAaK61IwFQlpmR1Uj0of2lObEqcqLVm4/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTY5/MjcwMjgyL3Bob3Rv/L3BsdW1iZXItd29y/a2luZy1vbi1waXBl/cy11bmRlci1zaW5r/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz1iNFlwVnpzeEFo/cFVXYmNFblhMNFIw/Y3pONVZ0Y0lnbHRI/TWxiaERFZVl3PQ" className="w-full" />
-    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 bg-transparent">
-      <a href="#slide3" className="btn text-theme-100">❮</a> 
-      <a href="#slide1" className="btn text-theme-100">❯</a>
+      <Link to={'/signup'}>
+        <button className="btn btn-primary">Get Started</button>
+        </Link>
     </div>
   </div>
 </div>
 
      {/* desktop view */}
-    {/* <section className='hidden md:flex Hero mx-4 md:mx-10 relative'>
-      <div className="Hero__slide bg-transparent carousel scroll-smooth">
-        <div id='slide1' className="Hero__item-1 Hero -ml-7 carousel-item flex flex-col md:flex-row mt-3 justify-evenly items-center bg-black min-h-fit" >
+     <section className='hidden md:flex Hero mx-4 md:mx-10 relative'>
+        <div id='slide1' className="Hero__item-1 -ml-7  flex flex-col md:flex-row justify-evenly items-center bg-black h-[30em] rounded-lg" >
             <Search/>
             <div className="Hero__text flex flex-col z-10 gap-4 md:w-1/2 bg-transparent " >
               <h1 className="text-3xl md:text-5xl shadow-lg font-poppins bg-transparent text-[#f8f8f8] leading-tight">
@@ -73,39 +107,18 @@ const Hero:React.FC = () => {
               <q className="text-white bg-transparent tracking-wider font-poppins">
               Connect with Nearby Electricians and Plumbers
               </q>
+              
+               <Link to={'/signup'} className='bg-inherit'>
+               <button className="btn btn-primary self-center btn-md">Get Started
+              </button>
+              </Link>
            </div>
-
-           <a href='#slide2' className="side__arrow rounded-full w-12 h-12 flex items-center justify-center bg-white absolute  left-0 -translate-x-1/2 cursor-pointer">
-              <BsArrowLeft size={24}/>
-           </a>
-           <a href='#slide2' className="side__arrow rounded-full w-12 h-12 flex items-center justify-center bg-white absolute right-0 translate-x-1/2 cursor-pointer">
-              <BsArrowRight size={24}/>
-           </a>
            </div>
-
-
-           <div id='slide2' className="Hero__item-2 carousel-item flex flex-col md:flex-row mt-3 justify-evenly items-center w-full bg-blue-600  " >
-            <div className="Hero__text flex flex-col z-10 gap-4 md:w-1/2 bg-transparent " >
-              <h1 className="text-3xl md:text-5xl shadow-lg font-poppins bg-transparent text-[#f8f8f8] leading-tight">
-              Power Up Your Space with Trusted Experts
-              </h1>
-              <q className="text-white bg-transparent tracking-wider font-poppins">
-              Connect with Nearby Electricians and Plumbers
-              </q>
-           </div>
-
-           <a href='#slide1' className="side__arrow rounded-full w-12 h-12 flex items-center justify-center bg-white absolute left-0 -translate-x-1/2 cursor-pointer">
-              <BsArrowLeft size={24}/>
-           </a>
-           <a className="side__arrow rounded-full w-12 h-12 flex items-center justify-center bg-white absolute right-0 translate-x-1/2 cursor-pointer">
-              <BsArrowRight size={24}/>
-           </a>
-           </div>
-          </div>
           
       
     </section> 
-    </div>  */}
+    </div> 
+    ) }
     </div>
   )
 }
