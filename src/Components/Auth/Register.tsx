@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router'
 import supabase from '../../Config/supabaseClient'
+import { Link } from 'react-router-dom'
 
 const Register:React.FC = () => {
 
@@ -55,7 +56,7 @@ const Register:React.FC = () => {
     
     return (
       <section className='Register'>
-      <div className="register flex flex-col md:flex-row flex-wrap items-center justify-evenly md:h-screen">
+      <div className="register flex flex-col md:flex-row flex-wrap items-center justify-evenly py-4 md:py-0 md:h-screen">
       <h1 className="text-3xl font-poppins font-bold md:hidden">Register</h1>
       <h1 className="text-[10px] text-neutral-500 md:hidden">(only for service providers)</h1>
         <div className="register__image  relative">
@@ -69,7 +70,7 @@ const Register:React.FC = () => {
           <h1 className="hidden md:block text-4xl font-poppins font-bold">Register</h1>
       <h1 className="hidden md:block text-xs text-neutral-500 ml-1">(only for service providers)</h1>
           <div className="register__form--inputs flex flex-col mt-6 px-4 md:px-0">
-            <div className="register_form--inputs-name flex w-full justify-between gap-3 md:gap-0">
+            <div className="register_form--inputs-name flex sm:flex-col lg:flex-row w-full justify-between gap-3 md:gap-0">
               <div className="name--input-2 relative mb-6 border rounded">
               <input
               onChange={e=>setFirstName(e.target.value)}
@@ -191,7 +192,7 @@ const Register:React.FC = () => {
                </button>
             </div>
             <span className='text-sm text-neutral-800 '>Alredy have an account?
-            <span className='text-blue-600 cursor-pointer'> Sign in</span>
+            <Link to={'/signin'}><span className='text-blue-600 cursor-pointer'> Sign in</span></Link>
             .</span>
           </div>
         </div>

@@ -6,9 +6,42 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
+      "messages": {
+        Row: {
+          created_at: string
+          from: string | null
+          id: number
+          message: string | null
+          message_id: string | null
+          to: string | null
+          username: string | null
+          is_chat: boolean
+        }
+        Insert: {
+          created_at: string
+          from?: string | null
+          id?: number
+          message?: string | null
+          message_id?: string | null
+          to?: string | null
+          username?: string | null
+          is_chat?: boolean
+        }
+        Update: {
+          created_at?: string
+          from?: string | null
+          id?: number
+          message?: string | null
+          message_id?: string | null
+          to?: string | null
+          username?: string | null
+          is_chat?: boolean
+        }
+        Relationships: []
+      },
       "service-providers": {
         Row: {
           created_at: string
@@ -19,6 +52,7 @@ export interface Database {
           last_name: string | null
           password: string | null
           phonenumber: number | null
+          profilePicUrl: string | null
           uuid: string | null
         }
         Insert: {
@@ -30,6 +64,7 @@ export interface Database {
           last_name?: string | null
           password?: string | null
           phonenumber?: number | null
+          profilePicUrl?: string | null
           uuid?: string | null
         }
         Update: {
@@ -41,10 +76,11 @@ export interface Database {
           last_name?: string | null
           password?: string | null
           phonenumber?: number | null
+          profilePicUrl?: string | null
           uuid?: string | null
         }
         Relationships: []
-      }
+      },
       "users": {
         Row: {
           created_at: string
@@ -55,6 +91,7 @@ export interface Database {
           location: string | null
           password: string | null
           phonenumber: number | null
+          profilePicUrl: string | null
           uuid: string | null
         }
         Insert: {
@@ -66,6 +103,7 @@ export interface Database {
           location?: string | null
           password?: string | null
           phonenumber?: number | null
+          profilePicUrl?: string | null
           uuid?: string | null
         }
         Update: {
@@ -77,6 +115,7 @@ export interface Database {
           location?: string | null
           password?: string | null
           phonenumber?: number | null
+          profilePicUrl?: string | null
           uuid?: string | null
         }
         Relationships: []

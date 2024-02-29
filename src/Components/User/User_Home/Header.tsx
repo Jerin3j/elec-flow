@@ -8,7 +8,7 @@ import { PostgrestResponse } from '@supabase/supabase-js';
 import { Database } from '../../../Types/supaTypes';
 import supabase from '../../../Config/supabaseClient';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../Reducer/Slices/store';
+import { RootState } from '../../../Reducer/store';
 import { useGeolocated } from "react-geolocated";
 
 
@@ -17,36 +17,36 @@ const Header:React.FC = () => {
   const [menu, setMenu] = useState<boolean>(false)
   const [userData, setUserData] = useState<Database['public']['Tables']['users']['Row'][] | null>(null)
   const authUser = useSelector((state: RootState) => state.authUser.userDetails); // get authUser details from redux-state
-  const uuid : string  = authUser && Array.isArray(authUser) && authUser.length > 0 ? authUser[0].id : null // take the uuid from user details
-  const { coords, isGeolocationAvailable, isGeolocationEnabled } =useGeolocated({positionOptions: {
-      enableHighAccuracy: false,
-    }})
-  console.log("location..",coords);
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      function(position) {
-        console.log("position",position);
-        const loc =`https://api.opencagedata.com/geocode/v1/json?q=${position.coords.latitude},${position.coords.longitude}&key=ee4cd75f7d4f494ea9058692bc9f3359`
-        fetch(loc).then((res)=> res.json)
-        .then((data)=>(
-        console.log("loc data", data)
-        ))
-        console.log("loc", loc);
-        
-      },
-      function(error) {
-        console.error("Error Code = " + error.code + " - " + error.message);
-      }
-    );
-
-  }, [])
-  
+  const uuid = useSelector((state: RootState) => state.authUser.userDetails?.uuid); // take the uuid from user details
+  const locName = useSelector((currentLocation: RootState)=> currentLocation.authUser.userDetails?.currentLocation)
+  console.log("typ", locName)
+ 
   
   //Note*
   // If fetching table uuid is not same as authUser.id (maybe its service provider table uuid) 
   // then data doesn't fetch the data so the userData array length is 0
   // most of case the service-providers table not fetch on user profile!..
+  // useEffect(() => {
+  //   async function updateLocation(){
+  //  try{
+  //     const {error} = await supabase
+  //     .from("users")
+  //     .update({location: locName})
+  //     .eq('uuid', uuid)
+  //     console.log("LOC DONE");
+  //     if(error){
+  //       console.log("We got an errorrr", error.message)
+  //     }else{
+  //       console.log("maybe location be updated")
+  //     }
+  //     updateLocation()
+  //   }catch(er){
+  //     console.log("got a fuckin error",er);
+  //  }
+  // }
+    
+  // }, [uuid])
+  
   useEffect(() => {
     async function fetchRecords() {
         try {
@@ -63,25 +63,12 @@ const Header:React.FC = () => {
            } catch (error) {
              console.error('An unexpected error occurred:', error);
            }
+           
         } 
        fetchRecords();
+    
     }, [authUser, uuid]); // Ensure this effect runs when `supabase` changes
     console.log("userData ::",userData);
-    
-  //   const CurrentLocation = () =>{
-  //     useGeolocated({
-  //       positionOptions: {
-  //         enableHighAccuracy: false,
-  //       },
-  //       userDecisionTimeout: 5000,
-  //     });
-      
-  //     isGeolocationAvailable ? (
-  //       console.log("LOCATION ,", coords)
-  //   ) : ''
-  // }
-  // CurrentLocation()
- 
   return (
     <div className='Header relative md:p-2 border-b-2 basis-6'>
       <Logo/>
@@ -93,9 +80,9 @@ const Header:React.FC = () => {
             <option className='font-rubik text-sm'>Karnadaka</option>
           </select>
        {menu?(
-          <BiSolidXCircle size={23} className='z-10 mt-1' onClick={()=>setMenu(!menu)}/>
+          <BiSolidXCircle size={25} className='z-10 mt-1' onClick={()=>setMenu(!menu)}/>
         )
-        :<BiMenu size={23} className='z-10 mt-1' onClick={()=>setMenu(!menu)}/>}
+        :<BiMenu size={25} className='z-10 mt-1' onClick={()=>setMenu(!menu)}/>}
         {
           menu ? (
             <div className="side_menu absolute left-0 mt-9 pt-16 flex flex-col items-center gap-16 w-full h-screen rounded-sm bg-white drop-shadow-lg z-30 transition-transform delay-200 ease-in-out transform -translate-x-2">
@@ -114,22 +101,20 @@ const Header:React.FC = () => {
                 </Link>
               </div>
              
-            <ul className="side_menu--options flex items-center flex-col justify-center gap-9 pl-10 mt-12 bg-transparent">
-            <li className="uppercase font-medium hover:text-[#28CC9E] flex gap-5 items-center cursor-pointer border-b-0 w-full bg-white text-xl bg-transparent"><CgHome />Home</li>
+            <ul className="side_menu--options flex items-center flex-col justify-center gap-9 mt-12 bg-transparent">
+            <li className="uppercase font-medium hover:text-[#28CC9E] flex cursor-pointer border-b-0 w-full bg-white text-xl bg-transparent"><Link to={'/'} className='flex gap-5 items-center bg-transparent'><CgHome />Home</Link></li>
             <li className="uppercase font-medium hover:text-[#28CC9E] flex gap-5 items-center cursor-pointer border-b-0 w-full bg-white text-xl bg-transparent"><CgComment />Messages</li>
             <li className="uppercase font-medium hover:text-[#28CC9E] flex gap-5 items-center cursor-pointer border-b-0 w-full bg-white text-xl bg-transparent"><CgBookmark />About</li>
-            <li className="uppercase font-medium hover:text-[#28CC9E] flex gap-5 items-center cursor-pointer border-b-0 w-full bg-white text-xl bg-transparent"><CgPhone />Register</li>
+            <li className="uppercase font-medium hover:text-[#28CC9E] flex cursor-pointer border-b-0 w-full bg-white text-xl bg-transparent"><Link to={'/register'} className='flex gap-5 items-center bg-transparent'><CgPhone />Register</Link></li>
           </ul>
           </div>
            ))
           ):( 
             <ul className="side_menu--options flex items-center flex-col justify-center  gap-7 mt-5 bg-transparent">
-            <li className="uppercase font-medium hover:text-[#28CC9E] flex gap-5 items-center cursor-pointer border-b-0 w-full bg-white text-2xl"><CgHome />Home</li>
+            <li className="uppercase font-medium hover:text-[#28CC9E] cursor-pointer border-b-0 w-full bg-white text-2xl"><Link to={'/'} className='flex gap-5 items-center bg-transparent'><CgHome />Home</Link></li>
             <li className="uppercase font-medium hover:text-[#28CC9E] flex gap-5 items-center cursor-pointer border-b-0 w-full bg-white text-2xl"><CgInfo />About</li>
-            <Link to={'signin'}>
-            <li className="uppercase font-medium hover:text-[#28CC9E] flex gap-5 items-center cursor-pointer border-b-0 w-full bg-white text-2xl"><CgLogIn />Login</li>
-            </Link>
-            <li className="uppercase font-medium hover:text-[#28CC9E] flex gap-5 items-center cursor-pointer border-b-0 w-full bg-white text-2xl"><CgPhone />Register</li>
+            <li className="uppercase font-medium hover:text-[#28CC9E] items-center cursor-pointer border-b-0 w-full bg-white text-2xl"><Link to={'signin'} className='flex gap-5 items-center bg-transparent'><CgLogIn />Login</Link></li>
+            <li className="uppercase font-medium hover:text-[#28CC9E] items-center cursor-pointer border-b-0 w-full bg-white text-2xl"><Link to={'/register'} className='flex gap-5 items-center bg-transparent'><CgPhone />Register</Link></li>
           </ul>
            )} 
           </div>
@@ -137,18 +122,23 @@ const Header:React.FC = () => {
         }
       </div>
       {/* Desktop view */}
-      <div className="Options hidden md:flex justify-evenly gap-56">
-        <div className="Options__text flex gap-6 items-center">
+      <div className="Options hidden md:flex sm:justify-center md:justify-evenly sm:gap-2 lg:gap-56">
+        <div className="Options__text flex sm:gap-1 sm:ml-3 lg:ml-0 lg:gap-6 items-center">
           <h1 className="text-base font-rubik cursor-pointer bg-transparent hover:text-[#28CC9E] active:drop-shadow-xl">Home</h1>
-          <Link to={'/service-providers'}><h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E]">Plumbers</h1></Link>
-          <h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E]">Electricians</h1>
-          <h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E]">Our team</h1>
+          <Link to={'/service-providers'}><h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E] hidden lg:flex">Plumbers</h1></Link>
+          <h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E] hidden lg:flex">Electricians</h1>
+          <h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E] hidden lg:flex">Our team</h1>
           <h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E]">Contact</h1>
         </div>
 
        {userData? (
-         <div className='Options__profile--logined icons flex gap-6'>
-        <BiCurrentLocation  size={33} className='cursor-pointer'/>
+         <div className='Options__profile--logined icons flex sm:gap-3 lg:gap-6'>
+        {locName?
+        (<div className="location__name flex gap-1 items-end mr-2">
+          <img className='w-8 h-8' src={require('../../../Media/Icons/loactionIcon.png')}/>
+          <h1 className="text-xl font-semibold font-lato">{locName}</h1>
+        </div> ):
+        (<BiCurrentLocation  size={33} className='cursor-pointer'/>)}
         <BiSolidMoon  size={33} className='cursor-pointer'/> 
         <Link to={'/your-profile'}>
          <CgProfile size={33} className='cursor-pointer'/>

@@ -6,7 +6,7 @@ import { Link, Navigate ,} from 'react-router-dom';
 import { SupabaseClient,PostgrestResponse } from '@supabase/supabase-js';
 import { Database } from "../Types/supaTypes";
 import { useSelector } from 'react-redux';
-import { RootState } from '../Reducer/Slices/store';
+import { RootState } from '../Reducer/store';
 import { User } from '../Reducer/Slices/userSlice';
 import { useDispatch } from 'react-redux';
 interface UserProfileProps {
@@ -18,7 +18,7 @@ const UserProfile:React.FC<UserProfileProps> = ({supabase}) => {
 
   const [userData, setUserData] = useState<Database['public']['Tables']['users']['Row'][] | null>(null)
   const authUser = useSelector((state: RootState) => state.authUser.userDetails); // get authUser details from redux-state
-  const uuid : string  = authUser && Array.isArray(authUser) && authUser.length > 0 ? authUser[0].id : null // take the uuid from service provider details
+  const uuid = useSelector((state: RootState) => state.authUser.userDetails?.uuid);  // take the uuid from service provider details
 
   useEffect(() => {
     async function fetchRecords() {

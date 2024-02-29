@@ -3,6 +3,8 @@ import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
 import supabase from '../../Config/supabaseClient';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
+import { RootState } from '../../Reducer/store';
+import { useSelector } from 'react-redux';
 const SignUp:React.FC = () => {
 
   const [visible, setVisible] = useState<boolean>(false)
@@ -12,6 +14,7 @@ const SignUp:React.FC = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [ConfirmPassword, setConfirmPassword] = useState<string>('')
+  const locName = useSelector((currentLocation: RootState)=> currentLocation.authUser.userDetails?.currentLocation)
   const navigate = useNavigate()
 
   async function Sign_Up() {
@@ -33,7 +36,7 @@ const SignUp:React.FC = () => {
       // Insert new user data to 'users' table with auth uuid
       const { data: InsertData, error: InsertError } = await supabase
         .from('users')
-        .insert([{ 'uuid': user_uuid, email, password }])
+        .insert([{ 'uuid': user_uuid, email, password, location: locName}])
         .select();
 
         if (InsertError) {
@@ -59,14 +62,14 @@ const SignUp:React.FC = () => {
       .insert([
     {  'uuid': user_uuid,
         email,
-        password },
+        password,
+        location: locName},
   ])
   }
 
-  
   return (
     <section className='Sign-Up'>
-    <div className="signup flex flex-col md:flex-row flex-wrap items-center justify-evenly md:h-screen">
+    <div className="signup flex flex-col md:flex-row flex-wrap items-center justify-evenly h-screen">
     <h1 className="text-3xl font-poppins font-bold md:hidden">Sign Up</h1>
       <div className="signup__image  relative">
         <img
@@ -79,7 +82,7 @@ const SignUp:React.FC = () => {
         <h1 className="hidden md:block text-4xl font-poppins font-bold">Sign Up</h1>
 
         <div className="signup__form--inputs flex flex-col mt-6 px-4 md:px-0">
-          <div className="signup_form--inputs-name flex w-full justify-between gap-3 md:gap-0">
+          <div className="signup_form--inputs-name flex sm:flex-col lg:flex-row w-full justify-between gap-3 md:gap-0">
             <div className="name--input-2 relative mb-6 border rounded">
             <input
                onChange={(e)=>setFirstName(e.target.value)}

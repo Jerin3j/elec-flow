@@ -44,7 +44,7 @@ const SignIn:React.FC = () => {
   
   return (
     <section className='Sign-In'>
-    <div className="signin flex flex-col md:flex-row flex-wrap items-center justify-evenly md:h-screen">
+    <div className="signin flex flex-col md:flex-row flex-wrap items-center justify-evenly h-screen">
     <h1 className="text-3xl font-poppins font-bold md:hidden">Sign In</h1>
       <div className="sigin__image  relative">
         <img

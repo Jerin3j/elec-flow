@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userSlice from "./userSlice";
+import userSlice from "./Slices/userSlice";
 import { useDispatch } from "react-redux";
-import serviceProviderSlice from "./serviceProviderSlice";
+import chatSlice from "./Slices/chatSlice";
 
 const store = configureStore({
     reducer: {
-        authUser: userSlice || serviceProviderSlice , // user or service-provider data is available and it passes to authUser
-
+        authUser: userSlice, // user data is available and it passes to authUser
+        chatUsers: chatSlice,
     }
 })
 

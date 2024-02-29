@@ -9,42 +9,52 @@ import WhyChoose from '../Components/User/User_Home/WhyChoose'
 import SP_Requests from '../Components/Service Provider/ServiceProvider_Home/SP_Requests'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
-import { RootState } from '../Reducer/Slices/store'
+import { RootState } from '../Reducer/store'
 import supabase from '../Config/supabaseClient'
-import { addUserIdentity } from '../Reducer/Slices/userSlice'
+import { addUserIdentity, setMetaData } from '../Reducer/Slices/userSlice'
 import SP_SideNav from '../Components/Service Provider/ServiceProvider_Home/SP_SideNav'
 import SP_Header from '../Components/Service Provider/ServiceProvider_Home/SP_Header'
+import SP_Dashboard from '../Components/Service Provider/ServiceProvider_Home/SP_Dashboard'
+import SignIn from '../Components/Auth/SignIn'
 
 const Home = () => {
+  const dispatch = useDispatch()
+  const metadata = useSelector((state: RootState) => state.authUser.userDetails?.metadata); 
   const [authUser, setAuthUser] = useState<any>()
+  const [isLoading, SetIsLoading] = useState(false)
 
     useEffect(()=> {
       (async()=>{
         const { data:{user}, } = await supabase.auth.getUser()
         let current_user : any = user?.identities
-        let use : any = user 
-        setAuthUser(use)
-        console.log("typeee", typeof(use));
+        let use : any = user
+        console.log("user at <home>",use);
+        SetIsLoading(true);
+        setAuthUser(use);
+        // if(user?.user_metadata?.job= null){
+          dispatch(setMetaData(user?.user_metadata?.job))
+        // }
         
     })()
-    }, [ ])
+    }, [])
   return (
-    <div>
-      {authUser?.user_metadata?.job ?     // if service provider loggined
+    isLoading && authUser? //remove authUser anytime
+    (<div>
+      {metadata ?     // if service provider loggined
      ( 
        <>
        <div className='px-4 scroll-smooth'>
         <SP_Header/>
         <SP_SideNav/>
-        <div className='sm:ml-64'>
-        <Hero/>
+        <div className='lg:ml-72'>
+        <SP_Dashboard/>
         <SP_Requests/>
         <Footer/> 
         </div>
         </div>
       </>
       ) : (                                 // if user loggined
-      <div className='px-4 md:px-64 scroll-smooth'>   
+      <div className='px-4 sm:px-1 lg:px-64 scroll-smooth'>   
       <Header/>
       <Hero/>
       <Services/>
@@ -54,8 +64,9 @@ const Home = () => {
       <Footer/>
       </div>
       ) }
-    </div>
-  )
+    </div>):
+        <h1>Loading at Home</h1>
+        );
 }
 
 export default Home

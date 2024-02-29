@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
-import { RootState } from '../Reducer/Slices/store';
+import { RootState } from '../Reducer/store';
 import { Database } from '../Types/supaTypes';
 import { PostgrestResponse } from '@supabase/supabase-js';
 import supabase from '../Config/supabaseClient';
 import { useDispatch } from 'react-redux';
-import { addProviderIdentity } from '../Reducer/Slices/serviceProviderSlice';
 import { addUserIdentity, setCheckUuid } from '../Reducer/Slices/userSlice';
 import SP_SideProfile from './Service Provider/ServiceProviderProfile-Edit/SP_SideProfile';
 
@@ -18,6 +17,9 @@ const ServiceProviders:React.FC = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const authUser = useSelector((state: RootState) => state.authUser.userDetails); // get authUser details from redux-state
+  const lsKey : any = Object.keys(localStorage)
+  const lsValue :any= JSON.parse(localStorage.getItem(lsKey) || "")
+    
   console.log("Check User state :", checkUser);
   
   useEffect(() => {
@@ -78,7 +80,7 @@ const ServiceProviders:React.FC = () => {
         <div key={id} className="ServiceProviders__List flex px-3 gap-4 md:gap-8 mb-4 items-center">
          <h1 className='capitalize font-rubik md:text-2xl'>{id+1}</h1>
          {/* <Link to={'/sp-profile'}> */}
-          <img onClick={()=>viewProvider(provider.uuid)} className='serviceProvider-profile rounded-full h-9 w-9 md:h-16 md:w-16 drop-shadow-xl cursor-pointer' src="https://imgs.search.brave.com/BN_fhov3dztUsUTDPT0l446WqsYOYmdxKtg9hgpa45M/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/dGhlZmFtb3VzcGVv/cGxlLmNvbS9wcm9m/aWxlcy90aHVtYnMv/amFjay1kb3JzZXkt/NjQ1MC0xLmpwZw" alt="" />
+          <img onClick={()=>viewProvider(provider.uuid)} className='serviceProvider-profile rounded-full h-9 w-9 md:h-16 md:w-16 drop-shadow-xl cursor-pointer' src={provider.profilePicUrl?provider.profilePicUrl: 'https://imgs.search.brave.com/L3Ui8AXfwSRP-j1GgdIlwYFiz5Gj1uz7b_yLJif3ErY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy83/LzdlL0NpcmNsZS1p/Y29ucy1wcm9maWxl/LnN2Zw.svg'} alt={`${provider.first_name} portrait`} />
            {/* </Link> */}
            <div className="ServiceProviders__List-name-email">
              <h1 className='text- md:text-3xl font-outfit capitalize'>{ provider.first_name+' '+provider.last_name +' - '+ provider.job}</h1>
@@ -95,7 +97,7 @@ const ServiceProviders:React.FC = () => {
         )))}
        
       {checkUser?
-      <SP_SideProfile checkuuid={checkUser} refOne={refOne} onClose={handleClose} onUserClick={handleUserClick} />
+ <SP_SideProfile checkuuid={checkUser} uuid={lsValue.user.id} refOne={refOne} onClose={handleClose} onUserClick={handleUserClick} />
          :null}
       </div>
     </section>
