@@ -14,31 +14,40 @@ export type Database = {
           created_at: string
           from: string | null
           id: number
+          is_chat: boolean 
           message: string | null
           message_id: string | null
+          sp_profile: string 
+          spname: string | null
           to: string | null
+          user_profile: string 
           username: string | null
-          is_chat: boolean
         }
         Insert: {
           created_at: string
           from?: string | null
           id?: number
+          is_chat?: boolean 
           message?: string | null
           message_id?: string | null
+          sp_profile?: string | null
+          spname?: string | null
           to?: string | null
+          user_profile?: string 
           username?: string | null
-          is_chat?: boolean
         }
         Update: {
           created_at?: string
           from?: string | null
           id?: number
+          is_chat?: boolean 
           message?: string | null
           message_id?: string | null
+          sp_profile?: string 
+          spname?: string | null
           to?: string | null
+          user_profile?: string 
           username?: string | null
-          is_chat?: boolean
         }
         Relationships: []
       },
@@ -50,6 +59,8 @@ export type Database = {
           id: number
           job: string | null
           last_name: string | null
+          latitude: number 
+          longitude: number 
           password: string | null
           phonenumber: number | null
           profilePicUrl: string | null
@@ -62,6 +73,8 @@ export type Database = {
           id?: number
           job?: string | null
           last_name?: string | null
+          latitude?: number
+          longitude?: number
           password?: string | null
           phonenumber?: number | null
           profilePicUrl?: string | null
@@ -74,6 +87,8 @@ export type Database = {
           id?: number
           job?: string | null
           last_name?: string | null
+          latitude?: number
+          longitude?: number
           password?: string | null
           phonenumber?: number | null
           profilePicUrl?: string | null
@@ -88,7 +103,9 @@ export type Database = {
           first_name: string | null
           id: number
           last_name: string | null
+          latitude: number | null
           location: string | null
+          longitude: number | null
           password: string | null
           phonenumber: number | null
           profilePicUrl: string | null
@@ -100,7 +117,9 @@ export type Database = {
           first_name?: string | null
           id?: number
           last_name?: string | null
+          latitude?: number | null
           location?: string | null
+          longitude?: number | null
           password?: string | null
           phonenumber?: number | null
           profilePicUrl?: string | null
@@ -112,7 +131,9 @@ export type Database = {
           first_name?: string | null
           id?: number
           last_name?: string | null
+          latitude?: number | null
           location?: string | null
+          longitude?: number | null
           password?: string | null
           phonenumber?: number | null
           profilePicUrl?: string | null

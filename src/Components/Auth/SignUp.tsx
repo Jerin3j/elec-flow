@@ -14,7 +14,7 @@ const SignUp:React.FC = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [ConfirmPassword, setConfirmPassword] = useState<string>('')
-  const locName = useSelector((currentLocation: RootState)=> currentLocation.authUser.userDetails?.currentLocation)
+  const locName = useSelector((currentLocation: RootState)=> currentLocation.userLocation.LocDetails?.currentLocation)
   const navigate = useNavigate()
 
   async function Sign_Up() {

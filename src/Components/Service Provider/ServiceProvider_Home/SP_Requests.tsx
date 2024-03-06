@@ -101,7 +101,7 @@ const SP_Requests:React.FC = () => {
           </span>
           <div className="request__user__items flex flex-col md:flex-row items-start  md:items-stretch md:justify-center md:gap-40 bg-transparent">
             <div className="user-profile flex items-center gap-3 bg-transparent mt-4 md:mt-0">
-            <img className='serviceProvider-profile rounded-full h-10 w-10 md:h-16 md:w-16 drop-shadow-xl' src="https://imgs.search.brave.com/BN_fhov3dztUsUTDPT0l446WqsYOYmdxKtg9hgpa45M/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/dGhlZmFtb3VzcGVv/cGxlLmNvbS9wcm9m/aWxlcy90aHVtYnMv/amFjay1kb3JzZXkt/NjQ1MC0xLmpwZw" alt="" />
+            <img className='serviceProvider-profile rounded-full h-10 w-10 md:h-16 md:w-16 drop-shadow-xl' src={reqs.user_profile} alt="" />
             <h1 className="text-xl md:text-3xl font-rubik capitalize bg-transparent">{reqs.username}</h1>
           </div>
 

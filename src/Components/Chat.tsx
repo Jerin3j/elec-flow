@@ -103,7 +103,7 @@ useEffect(() => {
     metaData?(
       //chat with user
       fromUserdata?.map(((user)=>(
-      <div className="Message flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
+      <div className="Message flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen px-4">
       <div className="Header flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
          <div className="relative flex items-center space-x-4">
             <div className="relative profile__picture">
@@ -200,7 +200,7 @@ useEffect(() => {
     (
       //chat with service provider
       toUserdata?.map(((sp)=>(
-    <div className="Message flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
+    <div className="Message flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen px-4">
    <div className="Header flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
       <div className="relative flex items-center space-x-4">
          <div className="relative profile__picture">

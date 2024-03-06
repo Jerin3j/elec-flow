@@ -22,23 +22,30 @@ const Home = () => {
   const metadata = useSelector((state: RootState) => state.authUser.userDetails?.metadata); 
   const [authUser, setAuthUser] = useState<any>()
   const [isLoading, SetIsLoading] = useState(false)
+  const [lsId, setLsId] = useState<string>()
 
+  const localStaorageData = () =>{
+    const lsKey : any = Object.keys(localStorage)
+    const lsValue :any= JSON.parse(localStorage.getItem(lsKey) || "")
+    setLsId(lsValue.user.id)
+    console.log("local storage",lsValue.user.id);
+    
+  }
     useEffect(()=> {
       (async()=>{
         const { data:{user}, } = await supabase.auth.getUser()
         let current_user : any = user?.identities
         let use : any = user
         console.log("user at <home>",use);
+        console.log("Metadata..",user?.user_metadata?.job)
         SetIsLoading(true);
         setAuthUser(use);
-        // if(user?.user_metadata?.job= null){
-          dispatch(setMetaData(user?.user_metadata?.job))
-        // }
+       
         
     })()
     }, [])
   return (
-    isLoading && authUser? //remove authUser anytime
+    isLoading? //remove authUser anytime
     (<div>
       {metadata ?     // if service provider loggined
      ( 

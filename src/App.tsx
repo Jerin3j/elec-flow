@@ -15,7 +15,8 @@ import UserProfile_Edit from './Components/User/Userprofile_Edit/YourProfile';
 import EditYourProfile from './Components/User/Userprofile_Edit/EditYourProfile';
 import supabase from './Config/supabaseClient';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { User, addUserIdentity, setAuthUuid, setCurrentLocation, setMetaData } from './Reducer/Slices/userSlice';
+import { User, addUserIdentity, setAuthUuid, setMetaData } from './Reducer/Slices/userSlice';
+import { setCurrentLocation, setLocationDetails } from './Reducer/Slices/locationSlice';
 import { PostgrestResponse, UserIdentity } from '@supabase/supabase-js';
 import store, { RootState, useAppDispatch } from './Reducer/store';
 import { UnknownAction } from 'redux';
@@ -25,6 +26,8 @@ import EditSp_Profile from './Components/Service Provider/ServiceProviderProfile
 import SP_Requests from './Components/Service Provider/ServiceProvider_Home/SP_Requests';
 import SP_Dashboard from './Components/Service Provider/ServiceProvider_Home/SP_Dashboard';
 import AccountPrefrences from './Components/User/Userprofile_Edit/AccountPrefrences';
+import Messages from './Components/Messages';
+import NearbyProviders from './Components/NearbyProviders';
 
 
 const App:React.FC  =() => {
@@ -32,48 +35,17 @@ const App:React.FC  =() => {
   const [isLoading, SetIsLoading] = useState(false)
   const dispatch = useDispatch() 
   const authUser = useSelector((state: RootState) => state.authUser.userDetails); // get authUser details from redux-state
+  const LocDetails = useSelector((state:RootState)=> state.userLocation.LocDetails)
   const [uuid, setUuid] = useState<any>()
+  const metadata = useSelector((state: RootState)=> state.authUser.userDetails?.metadata)
   console.log("redux Data @App",authUser)
+  console.log("location Data @App",LocDetails)
   
- 
+
+
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      function(position) {
-        console.log("position",position);
-        const loc =`https://api.opencagedata.com/geocode/v1/json?q=${position.coords.latitude},${position.coords.longitude}&key=ee4cd75f7d4f494ea9058692bc9f3359`
-        fetch(loc)
-        .then(res=> res.json())
-        .then((data)=>{
-        const locName = `${data.results[0].components?.road && data.results[0].components?.road} , ${data.results[0].components?.city}`
-          async function updateLocation(){
-            const {error} = await supabase
-            .from("users")
-            .update({location: locName})
-            .eq('uuid', uuid)
-            console.log("LOC DONE");
-            if(error){
-              console.log("We got an errorrr", error.message)
-            }else{
-              console.log("maybe location be updated")
-            }
-           }
-        if(uuid){
-            updateLocation()
-            }
-        dispatch(setCurrentLocation(locName))
-      })      
-      },
-      function(error) {
-        console.error("Error Code = " + error.code + " - " + error.message);
-      }
-    );
-    // async function updateLoc(){
-    //   const {error} = await supabase
-    //   .from("users")
-    //   .update({location: locName})
-    //   .eq('uuid', uuid)
-    // }
-  }, []);
+    
+  }, [uuid]);
 
    useEffect(()=> {
      try {
@@ -81,13 +53,15 @@ const App:React.FC  =() => {
          const { data:{user}, } = await supabase.auth.getUser()
          let current_user : any = user?.identities
          let user_id: any = user?.id
-        dispatch(addUserIdentity(current_user))
-        dispatch(setAuthUuid(user_id))
+          dispatch(addUserIdentity(current_user))
+          dispatch(setAuthUuid(user_id))
           SetIsLoading(true)                                                                                                              
           setUuid(current_user?.id)
           console.log("User Identities",current_user);
           console.log("User Identities ID",user_id);
-
+          if(user?.user_metadata?.job){
+            dispatch(setMetaData(user?.user_metadata?.job))
+          }
           
           // just alert for other providers throuh registered job description is null so they should add their job thourgh edit profile
           if(user?.user_metadata?.job == 0){
@@ -99,7 +73,59 @@ const App:React.FC  =() => {
             
           }
           
-      })()
+
+      navigator.geolocation.getCurrentPosition(
+        function(position) {
+          const loc =`https://api.opencagedata.com/geocode/v1/json?q=${position.coords.latitude},${position.coords.longitude}&key=ee4cd75f7d4f494ea9058692bc9f3359`
+          fetch(loc)
+          .then(res=> res.json())
+          .then((data)=>{
+            console.log("user loc data", data.results[0].geometry)
+            const latitude = data.results[0].geometry.lat
+            const longitude = data.results[0].geometry.lng
+            const currentLocation = `${data.results[0].components?.road && data.results[0].components?.road} , ${data.results[0].components?.city}`
+            dispatch(setLocationDetails({currentLocation, latitude, longitude}))
+  
+            async function updateLocation(){
+              const {data, error} = await supabase
+              .from('users')
+              // .update({location: currentLocation, latitude, longitude})
+              // .eq('uuid','5aca0478-72d8-498f-885b-29082a1ebf4a')
+              .upsert({uuid, location: currentLocation, latitude, longitude }, { onConflict: 'uuid' })
+              console.log("LOC DONE");
+              if(error){
+                console.log("We got an errorrr location ", error.message)
+              }else{
+                console.log("maybe location be updated user!")
+              }
+             }
+             async function updateProviderLocation(){
+              const {error} = await supabase
+              .from("service-providers")
+              .upsert({uuid, location: currentLocation, latitude, longitude }, { onConflict: 'uuid' })
+              console.log("LOC DONE Provider");
+              if(error){
+                console.log("We got an errorrr", error.message)
+              }else{
+                console.log("maybe location be updated provider!")
+              }
+             }
+          if(user && user?.user_metadata?.job){
+            updateProviderLocation()
+          } 
+          else if(user){
+           updateLocation()
+           }
+        })      
+        },
+        function(error) {
+          console.error("Error Code = " + error.code + " - " + error.message);
+        }
+      );
+      
+    })()
+
+
     }catch(error) {
       console.error('Error fetching user data at App:', error);
     }
@@ -109,12 +135,13 @@ const App:React.FC  =() => {
     
   
     return (
-     isLoading?
+      isLoading?
       ( <div className="App">
         <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/service-providers' element={<ServiceProviders/>}/>
+          <Route path='/nearby-providers' element={<NearbyProviders/>}/>
           <Route path='/signin' element={<SignIn/>}/>
           <Route path='/register' element={<Register/>}/>
           <Route path='/signup' element={<SignUp/>}/>
@@ -130,7 +157,7 @@ const App:React.FC  =() => {
           <Route path='/requests' element={<SP_Requests/>}/>
           <Route path='/dashboard' element={<SP_Dashboard/>}/>
           <Route path='/chat' element={<Chat/>}/>
-
+          <Route path='/messages' element={<Messages/>}/>
         </Routes>
         </BrowserRouter> 
         

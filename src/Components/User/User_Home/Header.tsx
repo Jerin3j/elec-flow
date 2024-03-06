@@ -18,7 +18,7 @@ const Header:React.FC = () => {
   const [userData, setUserData] = useState<Database['public']['Tables']['users']['Row'][] | null>(null)
   const authUser = useSelector((state: RootState) => state.authUser.userDetails); // get authUser details from redux-state
   const uuid = useSelector((state: RootState) => state.authUser.userDetails?.uuid); // take the uuid from user details
-  const locName = useSelector((currentLocation: RootState)=> currentLocation.authUser.userDetails?.currentLocation)
+  const locName = useSelector((state: RootState)=> state.userLocation.LocDetails?.currentLocation)
   console.log("typ", locName)
  
   
@@ -95,15 +95,15 @@ const Header:React.FC = () => {
                 userData.map((user)=>(
                 <div className="userData bg-transparent">
                 <div className="side_menu--profile_icon bg-transparent flex flex-col gap-3 items-center ">
-                <img className='h-24 w-2h-24 rounded-full' src="https://imgs.search.brave.com/L3Ui8AXfwSRP-j1GgdIlwYFiz5Gj1uz7b_yLJif3ErY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy83/LzdlL0NpcmNsZS1p/Y29ucy1wcm9maWxl/LnN2Zw.svg" alt="" />
                <Link to={'/your-profile'}>
+                <img className='h-24 w-2h-24 rounded-full' src="https://imgs.search.brave.com/L3Ui8AXfwSRP-j1GgdIlwYFiz5Gj1uz7b_yLJif3ErY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy83/LzdlL0NpcmNsZS1p/Y29ucy1wcm9maWxl/LnN2Zw.svg" alt="" />
                 <h1 className="username text-2xl font-poppins font-bold bg-white">{user.first_name+" "+user.last_name}</h1>
                 </Link>
               </div>
              
             <ul className="side_menu--options flex items-center flex-col justify-center gap-9 mt-12 bg-transparent">
             <li className="uppercase font-medium hover:text-[#28CC9E] flex cursor-pointer border-b-0 w-full bg-white text-xl bg-transparent"><Link to={'/'} className='flex gap-5 items-center bg-transparent'><CgHome />Home</Link></li>
-            <li className="uppercase font-medium hover:text-[#28CC9E] flex gap-5 items-center cursor-pointer border-b-0 w-full bg-white text-xl bg-transparent"><CgComment />Messages</li>
+            <li className="uppercase font-medium hover:text-[#28CC9E] flex gap-5 items-center cursor-pointer border-b-0 w-full bg-white text-xl bg-transparent"><Link to={'/messages'}><CgComment />Messages</Link></li>
             <li className="uppercase font-medium hover:text-[#28CC9E] flex gap-5 items-center cursor-pointer border-b-0 w-full bg-white text-xl bg-transparent"><CgBookmark />About</li>
             <li className="uppercase font-medium hover:text-[#28CC9E] flex cursor-pointer border-b-0 w-full bg-white text-xl bg-transparent"><Link to={'/register'} className='flex gap-5 items-center bg-transparent'><CgPhone />Register</Link></li>
           </ul>
@@ -113,7 +113,7 @@ const Header:React.FC = () => {
             <ul className="side_menu--options flex items-center flex-col justify-center  gap-7 mt-5 bg-transparent">
             <li className="uppercase font-medium hover:text-[#28CC9E] cursor-pointer border-b-0 w-full bg-white text-2xl"><Link to={'/'} className='flex gap-5 items-center bg-transparent'><CgHome />Home</Link></li>
             <li className="uppercase font-medium hover:text-[#28CC9E] flex gap-5 items-center cursor-pointer border-b-0 w-full bg-white text-2xl"><CgInfo />About</li>
-            <li className="uppercase font-medium hover:text-[#28CC9E] items-center cursor-pointer border-b-0 w-full bg-white text-2xl"><Link to={'signin'} className='flex gap-5 items-center bg-transparent'><CgLogIn />Login</Link></li>
+            <li className="uppercase font-medium hover:text-[#28CC9E] items-center cursor-pointer border-b-0 w-full bg-white text-2xl"><Link to={'/signin'} className='flex gap-5 items-center bg-transparent'><CgLogIn />Login</Link></li>
             <li className="uppercase font-medium hover:text-[#28CC9E] items-center cursor-pointer border-b-0 w-full bg-white text-2xl"><Link to={'/register'} className='flex gap-5 items-center bg-transparent'><CgPhone />Register</Link></li>
           </ul>
            )} 
@@ -125,8 +125,8 @@ const Header:React.FC = () => {
       <div className="Options hidden md:flex sm:justify-center md:justify-evenly sm:gap-2 lg:gap-56">
         <div className="Options__text flex sm:gap-1 sm:ml-3 lg:ml-0 lg:gap-6 items-center">
           <h1 className="text-base font-rubik cursor-pointer bg-transparent hover:text-[#28CC9E] active:drop-shadow-xl">Home</h1>
-          <Link to={'/service-providers'}><h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E] hidden lg:flex">Plumbers</h1></Link>
-          <h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E] hidden lg:flex">Electricians</h1>
+          <Link to={'/service-providers'}><h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E] hidden lg:flex">Service Providers</h1></Link>
+          <Link to={'/messages'}><h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E] hidden lg:flex">Messages</h1></Link>
           <h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E] hidden lg:flex">Our team</h1>
           <h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E]">Contact</h1>
         </div>

@@ -51,7 +51,7 @@
       height: 40em;
       /* margin: -15px; */
       mix-blend-mode: multiply;
-      background: linear-gradient(45deg, #00cdac 0%, #02aab0 100%);
+      background: linear-gradient(#c9ffdb, #f9fdc8);
       border: 2px bold black;
       border-radius: 60% 80% 30% 70% / 60% 38% 70% 40%;
   }

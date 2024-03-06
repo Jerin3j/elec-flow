@@ -8,12 +8,12 @@ import { RootState } from '../../../Reducer/store';
 import { useSelector } from 'react-redux';
 import { PostgrestResponse } from '@supabase/supabase-js';
 import supabase from '../../../Config/supabaseClient';
-import { Link } from 'react-router-dom';
-import { verify } from 'crypto';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Hero:React.FC = () => {
+  const navigate = useNavigate()
+  const [lsId, setLsId] = useState<string >()
   const [userData, setUserData] = useState<Database['public']['Tables']['users']['Row'][] | null>()
-  const [lsId, setLsId] = useState<string>()
   const authUser = useSelector((state:RootState) => state.authUser.userDetails)
   const uuid : string = authUser && Array.isArray(authUser) && authUser.length > 0 ? authUser[0].id : null
   
@@ -22,7 +22,6 @@ const Hero:React.FC = () => {
     const lsValue :any= JSON.parse(localStorage.getItem(lsKey) || "")
     setLsId(lsValue.user.id)
     console.log("local storage",lsValue.user.id);
-    
   }
   useEffect(()=>{
     localStaorageData();
@@ -85,7 +84,9 @@ const Hero:React.FC = () => {
          <input type="radio" name='radio1'/>
         </label>
         </div> 
-        <button className="self-center bg-transparent flex gap-1 text-3xl font-lato font-bold text-red-600 underline underline-offset-2 mt-7">Locate 
+        <button
+         onClick={()=>navigate('/nearby-providers')}
+          className="self-center bg-transparent flex gap-1 text-3xl font-lato font-bold text-red-600 underline underline-offset-2 mt-7">Locate 
         <BiLocationPlus className='bg-transparent' size={36}/></button>
       </form>
     </div>

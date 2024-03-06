@@ -5,7 +5,6 @@ import { useEffect } from
 export interface User{   //The auth user type to store
     uuid: any,
     checkuuid: string | null,   //uuid of service provider profile
-    currentLocation: string | null,
     metadata: string | null,
 }
 //State
@@ -35,11 +34,6 @@ export const UserSlice = createSlice({
                 state.userDetails = { ...state.userDetails, checkuuid: action.payload };; // get seperatly store uuid by type of string
             }
         },
-        setCurrentLocation:(state, action: PayloadAction<string | null>) =>{
-            if (state.userDetails) {
-                state.userDetails = { ...state.userDetails, currentLocation: action.payload }
-            }
-        },
         setMetaData:(state, action: PayloadAction<string | null>) =>{
             if (state.userDetails) {
                 state.userDetails = { ...state.userDetails, metadata: action.payload }
@@ -53,4 +47,4 @@ export const UserSlice = createSlice({
 console.log("initialState", initialState.userDetails);
 
 export default  UserSlice.reducer
-export const {addUserIdentity, setAuthUuid, setCheckUuid, setCurrentLocation, setMetaData} = UserSlice.actions
+export const {addUserIdentity, setAuthUuid, setCheckUuid, setMetaData} = UserSlice.actions
