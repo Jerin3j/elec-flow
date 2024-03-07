@@ -141,7 +141,7 @@ const Header:React.FC = () => {
         (<BiCurrentLocation  size={33} className='cursor-pointer'/>)}
         <BiSolidMoon  size={33} className='cursor-pointer'/> 
         <Link to={'/your-profile'}>
-         <CgProfile size={33} className='cursor-pointer'/>
+         {userData? userData.map((img)=><img style={{boxShadow: '0px 0px 3px #ead7c6'}} className='w-9 h-9 border rounded-full' src={img.profilePicUrl ? img.profilePicUrl : ''}/>):<CgProfile size={33} className='cursor-pointer'/>}
         </Link>
         </div>
        ):

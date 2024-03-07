@@ -59,7 +59,7 @@ export type Database = {
           id: number
           job: string | null
           last_name: string | null
-          latitude: number 
+          latitude: number
           longitude: number 
           password: string | null
           phonenumber: number | null

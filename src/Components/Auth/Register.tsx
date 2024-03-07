@@ -3,10 +3,13 @@ import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router'
 import supabase from '../../Config/supabaseClient'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../Reducer/store'
 
 const Register:React.FC = () => {
 
-    const [visible, setVisible] = useState<boolean>(false)
+  const locName = useSelector((currentLocation: RootState)=> currentLocation.userLocation.LocDetails?.currentLocation)
+  const [visible, setVisible] = useState<boolean>(false)
     const [firstName, setFirstName] = useState<string>('')
     const [lastName, setLastName] = useState<string>('')
     const [phonenumber, setPhonenumber] = useState<string>('')
@@ -39,13 +42,13 @@ const Register:React.FC = () => {
         // Insert new user data to 'users' table with auth uuid
         const { data: InsertData, error: InsertError } = await supabase
           .from('service-providers')
-          .insert([{ 'uuid': serviceProvider_uuid, 'first_name': firstName, 'last_name': lastName, email, password, phonenumber, job }])
+          .insert([{ 'uuid': serviceProvider_uuid, 'first_name': firstName, 'last_name': lastName, email, password, phonenumber, job, location: locName }])
           .select();
   
           if (InsertError) {
-            console.error('Error inserting user data:', InsertError);
+            console.error('Error inserting provider data:', InsertError);
           } else {
-            console.log('Inserted user data:', InsertData);
+            console.log('Inserted provider data:', InsertData);
           }
           
       } catch (error) {

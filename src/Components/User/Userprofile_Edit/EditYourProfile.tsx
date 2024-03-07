@@ -12,6 +12,7 @@ const EditYourProfile:React.FC = () => {
 
   const [userData, setUserData] = useState<Database['public']['Tables']['users']['Row'][] | null>(null)
   const [newFirstName, setnewFirstName] = useState<string>()
+  const [newLastName, setnewLastName] = useState<string>()
   const [newPhonenumber, setNewPhonenumber] = useState<string>()
   const [newEmail, setNewEmail] = useState<string>()
   const [profilePic, setProfilePic] = useState<any>(null)
@@ -107,6 +108,7 @@ const EditYourProfile:React.FC = () => {
           .from("users")
           .update({
             first_name: newFirstName,
+            last_name: newLastName,
             email: newEmail,
             phonenumber: newPhonenumber,
             profilePicUrl,
@@ -142,7 +144,7 @@ const EditYourProfile:React.FC = () => {
 
     <div className='Edit_your_Profile h-screen'>
       <div className="Header_items flex justify-between items-center p-2 px-4 pt-2 md:p-5 md:px-10">
-        <div className="header__username flex items-center gap-2 ">
+          <div className="header__username flex items-center gap-2 ">
            <Link to={'/'}>
            <FaArrowLeft size={20} />
            </Link>
@@ -167,12 +169,24 @@ const EditYourProfile:React.FC = () => {
         src={blobImage?  URL.createObjectURL(profilePic) : 'https://imgs.search.brave.com/L3Ui8AXfwSRP-j1GgdIlwYFiz5Gj1uz7b_yLJif3ErY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy83/LzdlL0NpcmNsZS1p/Y29ucy1wcm9maWxl/LnN2Zw.svg'} 
         alt="" />
         </div>
-        <div className="Edit__name flex justify-center items-center border-b border-teal-500 py-2">
-        <input defaultValue={`${user.first_name}`}
+        <div className="user--full_name flex gap-3 w-7/12">
+        <div className="Edit__firstname flex justify-center items-center border-b border-teal-500 py-2">
+        <input 
+         placeholder={`${user.first_name}`}
+         value={`${newFirstName || user.first_name}`}
          onChange={(e)=>(setnewFirstName(e.target.value))}
-         className="appearance-none bg-transparent text-4xl md:text-5xl text-center border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none font-poppins font-bold" type="text" placeholder="Yogesh Alphin" aria-label="Full name"/>
-        <button className="f border-transparent border-4 text-teal-500 hover:text-teal-800 text-sm py-1 px-2 rounded" type="button"><FaX/></button>
+         className="appearance-none bg-transparent text-4xl md:text-5xl text-center border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none font-poppins font-bold" type="text" aria-label="First name"/>
+        <button onClick={()=>setnewFirstName('')} className="f border-transparent border-4 text-teal-500 hover:text-teal-800 text-sm py-1 px-2 rounded" type="button"><FaX/></button>
        </div>
+       <div className="Edit__lastname flex justify-center items-center border-b border-teal-500 py-2">
+        <input 
+         placeholder={`${user.last_name}`}
+         value={`${newLastName || user.last_name}`}
+         onChange={(e)=>(setnewLastName(e.target.value))}
+         className="appearance-none bg-transparent text-4xl md:text-5xl text-center border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none font-poppins font-bold" type="text" aria-label="Last name"/>
+        <button onClick={()=>setnewLastName('')} className="f border-transparent border-4 text-teal-500 hover:text-teal-800 text-sm py-1 px-2 rounded" type="button"><FaX/></button>
+       </div>
+        </div>
       {/* <h1 className="font-poppins text-4xl md:text-7xl font-bold">Yogesh Alphin</h1> */}
       
       <div className="Profile__contact_details flex flex-col items-center md:mt-2 gap-2 md:gap-6">

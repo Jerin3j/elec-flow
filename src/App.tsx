@@ -42,11 +42,6 @@ const App:React.FC  =() => {
   console.log("location Data @App",LocDetails)
   
 
-
-  useEffect(() => {
-    
-  }, [uuid]);
-
    useEffect(()=> {
      try {
        (async()=>{
@@ -100,18 +95,22 @@ const App:React.FC  =() => {
               }
              }
              async function updateProviderLocation(){
-              const {error} = await supabase
-              .from("service-providers")
-              .upsert({uuid, location: currentLocation, latitude, longitude }, { onConflict: 'uuid' })
+              console.log("UUid:",user?.id)
+              const {data, error} = await supabase
+              .from('service-providers')
+              // .update({location: currentLocation, latitude, longitude})
+              // .eq('uuid', user?.id)
+              .upsert({uuid, location: currentLocation, latitude, longitude }, { onConflict: 'uuid'})
               console.log("LOC DONE Provider");
               if(error){
-                console.log("We got an errorrr", error.message)
+                console.log("We got an errorrr provider location", error)
               }else{
                 console.log("maybe location be updated provider!")
               }
              }
           if(user && user?.user_metadata?.job){
             updateProviderLocation()
+            console.log("LOC Provider successfully");
           } 
           else if(user){
            updateLocation()
