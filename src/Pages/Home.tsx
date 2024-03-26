@@ -45,35 +45,34 @@ const Home = () => {
     })()
     }, [])
   return (
-    isLoading? //remove authUser anytime
-    (<div>
+    <div>
       {metadata ?     // if service provider loggined
-     ( 
-       <>
-       <div className='px-4 scroll-smooth'>
+     ( <>
+       <div className='scroll-smooth'>
         <SP_Header/>
         <SP_SideNav/>
-        <div className='lg:ml-72'>
+        <div className='px-4 lg:ml-72'>
         <SP_Dashboard/>
         <SP_Requests/>
-        <Footer/> 
         </div>
+        <Footer/> 
         </div>
       </>
       ) : (                                 // if user loggined
-      <div className='px-4 sm:px-1 lg:px-64 scroll-smooth'>   
+      <div className=' scroll-smooth'>  
+      <div className='px-4 sm:px-1 lg:px-64'>
       <Header/>
       <Hero/>
       <Services/>
       <HowItWorks/>
       <WhyChoose/>
       <Testimonial/>
+      </div> 
       <Footer/>
       </div>
       ) }
-    </div>):
-        <h1>Loading at Home</h1>
-        );
+    </div>
+  );
 }
 
 export default Home

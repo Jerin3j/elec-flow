@@ -1,7 +1,4 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import supabase from "../../Config/supabaseClient";
-import { useEffect } from 
-"react";
 export interface User{   //The auth user type to store
     uuid: any,
     checkuuid: string | null,   //uuid of service provider profile
@@ -14,8 +11,6 @@ interface UserState{
 const initialState: UserState = {
     userDetails: null,
 }
-console.log(initialState.userDetails?.uuid);
-console.log("MetaDtata: ",initialState.userDetails) 
 
 export const UserSlice = createSlice({
     name: 'user',

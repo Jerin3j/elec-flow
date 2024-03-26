@@ -1,3 +1,8 @@
+export default interface MsgObj{
+  usr_text: string | null,
+  sp_text: string | null,
+  timestamp: string,
+}
 export type Json =
   | string
   | number
@@ -15,7 +20,7 @@ export type Database = {
           from: string | null
           id: number
           is_chat: boolean 
-          message: string | null
+          message: MsgObj[] 
           message_id: string | null
           sp_profile: string 
           spname: string | null
@@ -28,7 +33,7 @@ export type Database = {
           from?: string | null
           id?: number
           is_chat?: boolean 
-          message?: string | null
+          message?: MsgObj[]
           message_id?: string | null
           sp_profile?: string | null
           spname?: string | null
@@ -41,7 +46,7 @@ export type Database = {
           from?: string | null
           id?: number
           is_chat?: boolean 
-          message?: string | null
+          message?: MsgObj[]
           message_id?: string | null
           sp_profile?: string 
           spname?: string | null
@@ -59,6 +64,7 @@ export type Database = {
           id: number
           job: string | null
           last_name: string | null
+          location: string | null
           latitude: number
           longitude: number 
           password: string | null
@@ -75,6 +81,7 @@ export type Database = {
           last_name?: string | null
           latitude?: number
           longitude?: number
+          location?: string | null
           password?: string | null
           phonenumber?: number | null
           profilePicUrl?: string | null
@@ -89,6 +96,7 @@ export type Database = {
           last_name?: string | null
           latitude?: number
           longitude?: number
+          location?: string | null
           password?: string | null
           phonenumber?: number | null
           profilePicUrl?: string | null
@@ -108,7 +116,7 @@ export type Database = {
           longitude: number | null
           password: string | null
           phonenumber: number | null
-          profilePicUrl: string | null
+          profilePicUrl: string 
           uuid: string | null
         }
         Insert: {
@@ -122,7 +130,7 @@ export type Database = {
           longitude?: number | null
           password?: string | null
           phonenumber?: number | null
-          profilePicUrl?: string | null
+          profilePicUrl?: string 
           uuid?: string | null
         }
         Update: {
@@ -136,7 +144,7 @@ export type Database = {
           longitude?: number | null
           password?: string | null
           phonenumber?: number | null
-          profilePicUrl?: string | null
+          profilePicUrl?: string 
           uuid?: string | null
         }
         Relationships: []

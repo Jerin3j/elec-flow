@@ -22,14 +22,12 @@ const SP_Requests:React.FC = () => {
   console.log("uuid fetching at sp_requests",uuid)
   console.log("check at sp_requests",check)
 
-  const lsKey : any = Object.keys(localStorage)
-  const lsValue :any= JSON.parse(localStorage.getItem(lsKey) || "")
     useEffect(()=>{
       const fetchData=async()=>{
         const {data, error} = await supabase
         .from('messages')
         .select()
-        .eq('to', lsValue.user.id)
+        .eq('to', uuid)
   
         if(error){
           console.log("Got an error in getRequests", error)
@@ -37,20 +35,6 @@ const SP_Requests:React.FC = () => {
           getRequests(data.flat())
           console.log("get requests done", data)
         }
-        
-        // get user details based on the requests `to uuid`
-    //   const usersReponse: PostgrestResponse<Database['public']['Tables']['users']['Row'][] > = await supabase
-    //     .from("users")
-    //     .select()
-    //     .eq('uuid', '5aca0478-72d8-498f-885b-29082a1ebf4a')
-  
-    //     if(usersReponse.error){
-    //       console.log("Got an error in fetch users", usersReponse.error)
-    //     }else{
-    //       setUserData(usersReponse.data.flat())
-    //       console.log("sommm", usersReponse.data);
-       
-    // }
   }
     fetchData()
    
@@ -91,26 +75,26 @@ const SP_Requests:React.FC = () => {
    <div className="Requests_section h-1/2 flex flex-col">
       <h1 className="text-bold font-poppins text-2xl md:text-5xl font-bold text-center underline underline-offset-4">Requests</h1>
        <div className="User-Requests flex flex-col mt-6 md:mt-12 gap-3">
-        {
+        { requests?.length !== 0?
           requests?.map(((reqs, id)=>(
          <div key={id} 
          onClick={()=>reDirectChat(reqs.is_chat,reqs.from)} 
-         className="user-request relative flex justify-around h-24 md:h-20 rounded-lg md:mx-4 bg-blue-50 hover:bg-blue-100 cursor-pointer">
+         className="user-request relative flex justify-around h-24 md:h-20 rounded-lg md:mx-4 bg-blue-50 dark:bg-gray-800 hover:bg-blue-100 cursor-pointer">
           <span className="LeftArrow absolute left-0 mt-6 bg-transparent">
             <ImArrowRight className='h-5 w-5 md:h-9 md:w-9 bg-transparent'/>
           </span>
           <div className="request__user__items flex flex-col md:flex-row items-start  md:items-stretch md:justify-center md:gap-40 bg-transparent">
             <div className="user-profile flex items-center gap-3 bg-transparent mt-4 md:mt-0">
-            <img className='serviceProvider-profile rounded-full h-10 w-10 md:h-16 md:w-16 drop-shadow-xl' src={reqs.user_profile} alt="" />
-            <h1 className="text-xl md:text-3xl font-rubik capitalize bg-transparent">{reqs.username}</h1>
+            <img className='serviceProvider-profile rounded-full h-10 w-10 md:h-16 md:w-16 drop-shadow-xl' src={reqs.user_profile} alt="pic not_found" />
+            <h1 className="text-xl md:text-3xl font-outfit capitalize bg-transparent">{reqs.username}</h1>
           </div>
 
           <div className="mobile__text_time flex bg-transparent items-center md:gap-40">
            <div className="user-request_text flex md:gap-2 items-center bg-transparent">
-             <h1 className="text-bold font-rubik text-xl md:text-2xl bg-transparent hidden md:block">Request Text :</h1>
+             <h1 className="text-bold font-outfit text-xl md:text-2xl bg-transparent hidden md:block">Request Text :</h1>
              <span className="connect-text_from-user text-neutral-400 font-lato md:text-xl bg-transparent ml-2 md:ml-auto truncate md:underline underline-offset-4">Hi, I want you to accept my connect!</span>
            </div>
-          <h1 className="request-time font-rubik text-xs md:text-2xl bg-transparent opacity-0 lg:opacity-100">3:05pm</h1>
+          <h1 className="request-time font-outfit text-xs md:text-2xl bg-transparent opacity-0 lg:opacity-100">3:05pm</h1>
         {
           reqs.is_chat? ( 
           <input checked type='checkbox' className='checkbox checkbox-sm md:checkbox-md checkbox-accent absolute top-6 right-4 lg:sticky'/>
@@ -121,7 +105,9 @@ const SP_Requests:React.FC = () => {
         </div>
         </div>
       </div>
-    )))}
+    ))):
+    <h1 className="font-rubik text-center">(  No Requests!  )</h1> 
+  }
        </div> 
       </div>
       <div className='underline underline-offset-4 bg-black'></div> 

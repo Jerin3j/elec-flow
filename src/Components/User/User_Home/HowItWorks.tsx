@@ -4,7 +4,7 @@ const HowItWorks:React.FC = () => {
   return (
     <section className='HowItWorks mt-6 md:mt-12'>
       <div className="Hit__Text">
-      <h1 className='font-poppins text-center font-bold text-2xl md:text-5xl text-[#010103]'>How To Start ?</h1>
+      <h1 className='font-poppins text-center font-bold text-2xl md:text-5xl text-[#010103] dark:text-[#F7F7F7]'>How To Start ?</h1>
       </div>
       <div className="Hit__Contents flex flex-col md:flex-row justify-between mx-2 md:mx-0 pt-5 md:pt-10">
     <div className="Hit__Contents__row_1">

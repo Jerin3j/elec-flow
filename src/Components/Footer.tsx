@@ -7,7 +7,7 @@ import { FaSquareFacebook, FaSquareGithub, FaSquareInstagram, FaSquareTwitter } 
 const Footer = () => {
   return (
 <section className="Footer mt-24 ">
-    <div className="md:mx-auto w-full bg-neutral-200 p-4 py-5 md:py-7">
+    <div className="md:mx-auto w-full bg-neutral-200 dark:bg-[#0c0c0c] p-4 py-5 md:py-7">
         <div className="flex flex-col md:flex-row justify-center items-center md:justify-between md:px-16 bg-transparent">
           <div className="mb-6 md:mb-0 bg-transparent flex flex-col items-center justify-center">
               <a href="#" className="flex items-center justify-center md:justify-normal bg-transparent">

@@ -50,18 +50,18 @@
       width: 85em;
       height: 40em;
       /* margin: -15px; */
-      mix-blend-mode: multiply;
-      background: linear-gradient(#c9ffdb, #f9fdc8);
+      /* mix-blend-mode: multiply; */
+      /* background: linear-gradient(#c9ffdb, #f9fdc8); */
       border: 2px bold black;
       border-radius: 60% 80% 30% 70% / 60% 38% 70% 40%;
   }
   .circle__blob-inner{
     margin-top: 2em;
     margin-left: 1em;
-    mix-blend-mode: multiply;
+    /* mix-blend-mode: multiply; */
     border-radius: 60% 80% 30% 70% / 60% 38% 70% 40%;
     padding:7%;
-    background-color: #4e4376;
+    /* background-color: #4e4376; */
     
   }
   .circle__blob-inner h1{

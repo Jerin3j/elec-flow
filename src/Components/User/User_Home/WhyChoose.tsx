@@ -3,7 +3,7 @@ import React from 'react'
 const WhyChoose:React.FC = () => {
   return (
     <section className='Choose mt-12 md:mt-28'>
-      <h1 className='font-poppins text-center font-bold text-2xl md:text-5xl text-[#010103]'>Why Choose Us</h1>
+      <h1 className='font-poppins text-center font-bold text-2xl md:text-5xl text-[#010103] dark:text-[#F7F7F7]'>Why Choose Us</h1>
         <div className="choose flex flex-col md:flex-row gap-20 mt-5 md:mt-10">
         <div className="choose__one flex flex-col mt-2 md:mt-5 md:w-3/4 ml-2 md:ml-0 gap-4 md:gap-7">
             <h1 className='font-poppins md:font-rubik text-lg md:text-3xl font-extrabold tracking-wide'>Effortlessly Book Nearby Electricians and Plumbers</h1>

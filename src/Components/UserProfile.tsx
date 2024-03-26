@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 import { FaArrowLeft, FaPhone, FaVoicemail,  } from "react-icons/fa";
 import { FaMapLocation, FaMapLocationDot, FaMapPin } from 'react-icons/fa6';
 import "../Media/Icons/loactionIcon.png"
-import { Link, Navigate ,} from 'react-router-dom';
+import { Link, Navigate, useParams ,} from 'react-router-dom';
 import { SupabaseClient,PostgrestResponse } from '@supabase/supabase-js';
 import { Database } from "../Types/supaTypes";
 import { useSelector } from 'react-redux';
@@ -55,7 +55,7 @@ const UserProfile:React.FC<UserProfileProps> = ({supabase}) => {
         </div>
          <div className="User-location flex items center">
           <img className='w-5 h-5 md:w-8 md:h-8' src={require('../Media/Icons/loactionIcon.png')} alt="" />
-           <h1 className="font-rubik md:font-semibold text-sm md:text-lg">Byrathi Cross, Bengaluru</h1>
+           <h1 className="font-rubik md:font-semibold text-sm md:text-lg">{user.location}</h1>
            </div>
          </div>
       <div className="Profile__User flex flex-col justify-center items-center gap-2 mt-24">

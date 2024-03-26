@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { FaArrowLeft } from 'react-icons/fa6'
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import { Database } from '../../../Types/supaTypes'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../Reducer/store'
 import { PostgrestResponse } from '@supabase/supabase-js'
 import supabase from '../../../Config/supabaseClient'
+import { toast } from 'react-toastify'
 
 
 const ServiceProvider_Profile:React.FC = () => {
@@ -35,25 +36,18 @@ const ServiceProvider_Profile:React.FC = () => {
        fetchRecords();
     }, [authUser, uuid]); // Ensure this effect runs when `supabase` changes
 
- console.log("serviceProviderData ::",serviceProviderData);
+    const SignOut =async () => {
+      const { error } = await supabase.auth.signOut()
+      if(!error){
+        toast("Successfully Log Out!")
+      }
+    }
  
   return (
      <>
      {
       serviceProviderData?.map((provider =>(
      <div className='ServiceProvider_Profile h-screen pt-20 md:pt-52 flex flex-col items-center'>
-      {/* <div className="Header_items flex justify-between items-center p-2 px-4 pt-2 md:p-5 md:px-10">
-        <div className="header__username flex items-center gap-2 ">
-           <Link to={'/'}>
-           <FaArrowLeft size={20} />
-           </Link>
-          <h1 className="text-xl font-outfit font-bold lowercase">Alphin.yogesh</h1>
-        </div>
-         <div className="User-location flex items center">
-          <img className='w-5 h-5 md:w-8 md:h-8' src={require('../Media/Icons/loactionIcon.png')} alt="" />
-           <h1 className="font-rubik md:font-semibold text-sm md:text-lg">Byrathi Cross, Bengaluru</h1>
-           </div>
-         </div> */}
       <div className="Sp__Profile flex flex-col md:flex-row justify-center items-center gap-10">
         <div className="serviceProvider__1">
          <img className='serviceProvider-profile-pic rounded-full w-40 h-40 md:h-52 md:w-52 drop-shadow-xl' src={provider.profilePicUrl? provider.profilePicUrl: 'https://imgs.search.brave.com/L3Ui8AXfwSRP-j1GgdIlwYFiz5Gj1uz7b_yLJif3ErY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy83/LzdlL0NpcmNsZS1p/Y29ucy1wcm9maWxl/LnN2Zw.svg'} alt={`${provider.first_name} portrait`}/>
@@ -84,13 +78,13 @@ const ServiceProvider_Profile:React.FC = () => {
       <img className='w-5 h-5 md:w-7 md:h-7' src={require('../../../Media/Icons/settingsIcon.png')} alt="Account Preferences" />
         <h1 className="font-lato font-semibold py-3 px-2 text-green-700 hover:text-green-900">Account Preferences</h1>
         </div>
-       <Link to={'/sp-profile/edit'}>
+       <Link to={'edit'}>
         <div className="Ac__Preferences border-2 border-blue-600 rounded-lg w-96 md:w-56 px-2 md:px-0 flex justify-center items-center gap-2 cursor-pointer hover:drop-shadow-xl hover:shadow-blue-700">
           <img className='w-5 h-5 md:w-7 md:h-7' src={require('../../../Media/Icons/editIcon.png')} alt="Edit Profile" />
           <h1 className="font-lato font-semibold py-3 px-2 text-blue-700 hover:text-blue-900">Edit Profile</h1>
         </div>
         </Link>
-        <div className="Ac__Preferences border-2 border-red-600 rounded-lg w-96 md:w-56 px-2 md:px-0 flex justify-center items-center gap-2 cursor-pointer hover:drop-shadow-xl hover:shadow-red-700">
+        <div onClick={SignOut} className="Ac__Preferences border-2 border-red-600 rounded-lg w-96 md:w-56 px-2 md:px-0 flex justify-center items-center gap-2 cursor-pointer hover:drop-shadow-xl hover:shadow-red-700">
           <img className='w-5 h-5 md:w-7 md:h-7' src={require('../../../Media/Icons/logoutIcon.png')} alt="Log out" />
           <h1 className="font-lato font-semibold py-3 px-2 text-red-700 hover:text-red-900">Log out</h1>
         </div>
