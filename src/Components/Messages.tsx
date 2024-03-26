@@ -9,6 +9,7 @@ import supabase from '../Config/supabaseClient'
 import { PostgrestResponse } from '@supabase/supabase-js'
 import { useDispatch } from 'react-redux'
 import { setIds } from '../Reducer/Slices/chatSlice'
+import BarLoader from './BarLoader'
 
 const Messages = () => {
 
@@ -47,17 +48,26 @@ const Messages = () => {
     }
     fetchMessages()
   },[])
-  const reDirectChat = async(fromId: string | null)=>{
-      const toId = uuid
+  const reDirectChat = async(from_id: string | null, to_id: string | null)=>{
+      if(metadata){
+        const toId = uuid
+      const fromId = from_id
       await dispatch(setIds({fromId, toId}))
       navigate('/chat')
+      }else{
+      const fromId = uuid
+        const toId = to_id
+      await dispatch(setIds({fromId, toId}))
+      navigate('/chat')
+      }
+      
 
   }
   return (
     <div className='Message'>
-      <div className="Message__Mobile flex flex-col h-screen px-4 sm:px-1 lg:px-32 md:hidden">
+      <div className="Message__Mobile flex flex-col h-full max-h-full md:h-screen px-4 sm:px-1 lg:px-32 md:hidden">
       <div className="Message__Mobile--header py-1 flex justify-between border-b-2 ">
-          <h1 className="text-3xl font-outfit">Messages</h1>
+          <h1 className="text-3xl font-outfit dark:text-[#F7F7F7]">Messages</h1>
           <div className="Header__Comps flex gap-4 items-center">
           <Link to={'/your-profile'}>
            <CgProfile size={30} className='cursor-pointer'/>
@@ -68,16 +78,19 @@ const Messages = () => {
           <div className="Message__Mobile--body flex flex-col gap-3 py-2">
           {messagesData.map((data, index)=>(
             <div key={index}
-            onClick={()=>reDirectChat(data.from)}
+            onClick={()=>reDirectChat(data.from, data.to)}
              className="Message_box flex w-full py-2 px-1 border-b">
            <img className='serviceProvider-profile-pic rounded-full w-12 h-12 drop-shadow-xl' src={metadata? data.user_profile : data.sp_profile} alt={`portrait`}/>
            <div className="Message_box--text_items flex flex-col px-2 w-full">
            <div className="profile-pic__time flex justify-between">
             <h1 className="text-xl font-outfit">{metadata? data.username : data.spname}</h1>
-            <h1 className='text- font-poppins text-neutral-400'>3 : 50 pm</h1>
+            <h1 className='text- font-poppins text-neutral-400'>{data?.message && data.message.length > 0 ? data.message[data.message.length - 1].timestamp : '00:00'}</h1>
            </div>
            <div className="message-text__online_stat flex justify-between">
-            <h1 className="text-sm font-poppins w-1/4 truncate mt-1 ml-1 text-neutral-400">Hello, that's fine. I'll come today</h1>
+            <h1 className="text-sm font-poppins w-1/4 truncate mt-1 ml-1 text-neutral-400">{data?.message && data.message.length > 0
+             ? (metadata ? data.message[data.message.length - 1].usr_text : data.message[data.message.length - 1].sp_text)
+             : 'Click to chat'}
+           </h1>
             <div className="rounded-full bg-green-600 h-2 w-2 mr-4 mt-2"></div>
            </div>
            </div>
@@ -103,24 +116,26 @@ const Messages = () => {
           <div className="Message__Desktop--body flex flex-col gap-3 py-2">
           {messagesData.map((data, index)=>(
             <div key={index}
-            onClick={()=>reDirectChat(data.from)}
+            onClick={()=>reDirectChat(data.from, data.to)}
              className="Message_box flex w-full py-2 px-1 border-b">
             <img className='serviceProvider-profile-pic rounded-full w-20 h-20  border-2 drop-shadow-xl' src={metadata? data.user_profile : data.sp_profile} alt={`portrait`}/>
            <div className="Message_box--text_items flex flex-auto flex-col px-4 w-72">
            <div className="profile-pic__time flex justify-between">
             <h1 className="text-3xl font-outfit">{metadata? data.username : data.spname}</h1>
-            <h1 className='text-lg font-poppins text-neutral-400'>3 : 50 pm</h1>
+            <h1 className='text-lg font-poppins text-neutral-400'>{data?.message && data.message.length > 0 ? data.message[data.message.length - 1].timestamp : '00:00'}</h1>
            </div>
            <div className="message-text__online_stat flex justify-between">
-            <h1 className="text-xl font-poppins w-1/4 truncate mt-1 ml-1 text-neutral-400">Hello, that's fine. I'll come today kdjwedewhjwhdwhfhfewhfehwiwhieiwehifhjhkhkkkkhkhkhkhkhkhkhkhcdsckakhffhwifiahfkfhjerinjermsjrofosjvndknvkfnkaknkekaknfena</h1>
+            <h1 className="text-xl font-poppins w-1/4 truncate mt-1 ml-1 text-neutral-400">{data?.message && data.message.length > 0
+            ? (metadata ? data.message[data.message.length - 1].usr_text : data.message[data.message.length - 1].sp_text)
+            : 'Click to chat'}
+    </h1>
             <div className="rounded-full bg-green-600 h-2 w-2 mr-4 mt-2"></div>
            </div>
            </div>
-          </div>))}
-          </div>:
-          <div className="no-message-text">
-           <h1 className='text-center'>No messages</h1>
           </div>
+          ))}
+          </div>:
+         <BarLoader/>
         }
         </div>
       </div>
