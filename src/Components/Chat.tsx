@@ -250,7 +250,7 @@ useEffect(() => {
                   <circle cx="8" cy="8" r="8" fill="currentColor"></circle>
                </svg>
             </span> */}
-         <img src={sp.profilePicUrl? sp.profilePicUrl : "https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"} alt="" className="w-10 sm:w-16 h-10 sm:h-16 rounded-full"/>
+         <img src={sp.profilePicUrl? sp.profilePicUrl : "https://imgs.search.brave.com/L3Ui8AXfwSRP-j1GgdIlwYFiz5Gj1uz7b_yLJif3ErY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy83/LzdlL0NpcmNsZS1p/Y29ucy1wcm9maWxl/LnN2Zw.svg"} alt="" className="w-10 sm:w-16 h-10 sm:h-16 rounded-full"/>
          </div>
          <div className="flex flex-col leading-tight">
             <div className="text-2xl mt-1 flex items-center">
@@ -277,7 +277,7 @@ useEffect(() => {
             <div className="chat chat-start">
              <div className="chat-image avatar">
               <div className="w-10 rounded-full mb-5">
-                <img alt="Tailwind CSS chat bubble component" src={sp.profilePicUrl? sp.profilePicUrl : "https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"} />
+                <img alt="Tailwind CSS chat bubble component" src={sp.profilePicUrl? sp.profilePicUrl : "https://imgs.search.brave.com/L3Ui8AXfwSRP-j1GgdIlwYFiz5Gj1uz7b_yLJif3ErY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy83/LzdlL0NpcmNsZS1p/Y29ucy1wcm9maWxl/LnN2Zw.svg"} />
               </div>
             </div>
              <div className="chat-header">
@@ -290,7 +290,7 @@ useEffect(() => {
             <div className="chat chat-end flex-1 items-center">
             <div className="chat-image avatar bg-transparent">
               <div className="w-10 rounded-full mb-5">
-                <img alt="profile-pic" className='self-center' src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                <img alt="profile-pic" className='self-center' src='https://imgs.search.brave.com/L3Ui8AXfwSRP-j1GgdIlwYFiz5Gj1uz7b_yLJif3ErY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy83/LzdlL0NpcmNsZS1p/Y29ucy1wcm9maWxl/LnN2Zw.svg' />
               </div>
             </div>
             
