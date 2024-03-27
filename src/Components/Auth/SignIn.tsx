@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { toast } from 'react-toastify';
 
 const SignIn:React.FC = () => {
   const [visible, setVisible] = useState<boolean>(false)
@@ -43,8 +44,9 @@ const SignIn:React.FC = () => {
         console.error('Error signing in:', error);
         alert(error.message)
       } else {
-        console.log('Successfully signed in:', data.user);
+        toast("Successfully Sign In!")
         navigate('/')
+        window.location.reload()
       }
     } catch (error) {
       console.error('An unexpected error occurred:', error);
