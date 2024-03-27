@@ -1,46 +1,67 @@
-# Getting Started with Create React App
+# 
+<h1 align="center"> ElecFlow </h1> <br>
+<p align="center">
+  <a href="#">
+    <Logo/>
+  </a>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Live Link: 
+https://elec-flow-jerin3j.vercel.app/
 
-## Available Scripts
+ ## Table of Content
+- [](#)
+  - [Live Link:](#live-link)
+  - [Table of Content](#table-of-content)
+  - [About the Project:](#about-the-project)
+  - [Screenshots:](#screenshots)
+  - [Technologies Used:](#technologies-used)
+  - [Algorithm Used:](#algorithm-used)
+  - [Setup / Installation:](#setup--installation)
+  - [Approach:](#approach)
+  - [License:](#license)
 
-In the project directory, you can run:
+## About the Project:
+ElecFlow is a web application designed to help users find nearby plumbers and electricians easily. The project was created to address the need for a convenient and efficient way to locate and connect with service professionals in the plumbing and electrical fields.
 
-### `npm start`
+## Screenshots:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Technologies Used:
+- React.Js
+- Typescript
+- Tailwind CSS
+- Supabase
+- Geoapify
+- Redux Toolkit
+- Redux Persist
 
-### `npm test`
+## Algorithm Used:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  - Haversine Algorithm - Calculate distance between two points on a sphere
 
-### `npm run build`
+## Setup / Installation:
+1. Clone the repository.
+2. Navigate to the project directory.
+3. Run `npm install` to install dependencies.
+4. Run `npm start` to start the development server.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Approach:
+ElecFlow utilizes a modern tech stack to deliver a seamless experience:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **React.js with Typescript**: Frontend development is powered by React.js with Typescript, ensuring efficient and robust code.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Tailwind CSS**: Tailwind CSS facilitates rapid UI development with its utility-first approach, enabling sleek and responsive designs.
 
-### `npm run eject`
+- **Supabase**: Supabase serves as the backend, offering serverless infrastructure for user data management and authentication.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- **Geoapify**: Geoapify enables location-based services, so either fetching user current location it gives user to input the location name.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Redux Toolkit with Redux Persist**: Redux Toolkit manages application state, while Redux Persist ensures state persistence for enhanced user experience.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Together, these technologies empower ElecFlow to provide users with a streamlined solution for finding nearby plumbers and electricians
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## License:
+This project is licensed under the terms of the MIT license.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
