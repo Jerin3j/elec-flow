@@ -126,7 +126,7 @@ const SP_SideProfile = ({checkuuid, uuid, refOne, onUserClick, onClose}:any) => 
             ]);
       
           if (insertError) {
-            console.log("Error occurred while inserting record:", insertError.message);
+            alert(`You are not Logined!, ${insertError.message}`);
           } else {
             toast("Connection Sent!");
           }

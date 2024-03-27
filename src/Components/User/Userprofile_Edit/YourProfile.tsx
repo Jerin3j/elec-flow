@@ -8,6 +8,7 @@ import { RootState } from '../../../Reducer/store';
 import { PostgrestResponse } from '@supabase/supabase-js';
 import supabase from '../../../Config/supabaseClient';
 import { updateSourceFileNode } from 'typescript';
+import { toast } from 'react-toastify';
 
 const YourProfile:React.FC = () => {
 
@@ -47,7 +48,9 @@ const YourProfile:React.FC = () => {
   if(error){
     alert(error.message)
   }else{
-    navigate(-1)
+    toast("Successfully Log Out!")
+    navigate('/')
+    window.location.reload()
   }
 }
  

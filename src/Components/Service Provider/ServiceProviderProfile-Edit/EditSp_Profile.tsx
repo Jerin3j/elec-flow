@@ -135,6 +135,8 @@ const EditSp_Profile = () => {
         const { error } = await supabase.auth.signOut()
         if(!error){
           toast("Successfully Log Out!")
+          navigate('/')
+          window.location.reload()
         }
       }
 

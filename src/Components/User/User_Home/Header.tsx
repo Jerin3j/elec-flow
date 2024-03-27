@@ -39,6 +39,7 @@ const Header:React.FC = () => {
            console.error('Error fetching data:', error);
          } else {
            setUserData(data.flat())
+           console.log("data get in header", data.flat())
          }
            } catch (error) {
              console.error('An unexpected error occurred:', error);
@@ -78,17 +79,22 @@ const Header:React.FC = () => {
       <Logo/>
       
       <div className="hamburger-menu md:hidden mr-3 flex gap-2 items-center">
-      {locName != null?
-        <div onClick={fetchUserLocation} className="location__name flex gap-1 items-end mr-1 cursor-pointer">
+        {locName == null? 
+          <div onClick={fetchUserLocation} className="location__name flex gap-1 items-end mr-1 cursor-pointer">
           <img className='w-5 h-5' src={require('../../../Media/Icons/loactionIcon.png')}/>
-          <h1 className="text-sm font-bold font-popp whitespace-nowrap">{locName}</h1>
+          <h1 className="text-sm font-bold font-popp whitespace-nowrap">Kerala</h1>
         </div> 
-        :
-        <select className="select select-bordered border-slate-800 bg-slate-50 dark:bg-gray-300 dark:text-black select-sm w-20 select-accent font-rubik text-xs mr-2">
-            <option selected className='font-rubik text-sm '>Kerala</option>
-            <option className='font-rubik text-sm'>Tamil nadu</option>
-            <option className='font-rubik text-sm'>Karnadaka</option>
-          </select>}
+          // <select className="select select-bordered border-slate-800 bg-slate-50 dark:bg-gray-300 dark:text-black select-sm w-20 select-accent font-rubik text-xs mr-2">
+          //  <option onClick={fetchUserLocation} selected className='font-rubik text-sm '>Kerala</option>
+          //  <option className='font-rubik text-sm'>Tamil nadu</option>
+          //  <option className='font-rubik text-sm'>Karnataka</option>
+          // </select> 
+          :
+             <div className="location__name flex gap-1 items-end mr-1 cursor-pointer">
+               <img className='w-5 h-5' src={require('../../../Media/Icons/loactionIcon.png')}/>
+               <h1 className="text-sm font-bold font-popp whitespace-nowrap">{locName}</h1>
+             </div> 
+         }
        {menu?(
           <BiSolidXCircle size={25} className='z-10 mt-1' onClick={()=>setMenu(!menu)}/>
         )
@@ -104,14 +110,14 @@ const Header:React.FC = () => {
               {userData? (
                 userData.map((user)=>(
                 <div className="userData bg-transparent">
-                <div className="side_menu--profile_icon bg-transparent flex flex-col gap-3 items-center">
-               <Link to={`/your-profile`} className='bg-transparent'>
+                <div className="side_menu--profile_icon bg-transparent flex flex-col gap-2 items-center ">
+               <Link to={`/your-profile`} className='bg-transparent flex flex-col items-center gap-3'>
                 <img className='h-24 w-2h-24 rounded-full bg-transparent' src="https://imgs.search.brave.com/L3Ui8AXfwSRP-j1GgdIlwYFiz5Gj1uz7b_yLJif3ErY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy83/LzdlL0NpcmNsZS1p/Y29ucy1wcm9maWxl/LnN2Zw.svg" alt="" />
                 <h1 className="username text-2xl font-poppins font-bold bg-white dark:bg-[#0b1215]">{user.first_name+" "+user.last_name}</h1>
                 </Link>
               </div>
              
-            <ul className="side_menu--options flex items-center flex-col gap-9 mt-12 ml-[70px] bg-transparent">
+            <ul className="side_menu--options flex items-center flex-col gap-9 mt-8 ml-[70px] bg-transparent">
             <li className="uppercase font-medium hover:text-[#28CC9E] flex cursor-pointer border-b-0 w-full bg-white dark:bg-[#0b1215] text-xl bg-transparent">
               <Link to={'/'} className='flex gap-5 items-center bg-transparent'>
             <svg xmlns="http://www.w3.org/2000/svg" className=' fill-[#0c0c0c] dark:fill-[#F7F7F7]' fill="none" viewBox="0 0 14 14" height="20" width="20" id="Home-2--Streamline-Flex"><g id="Home-2--Streamline-Flex"><path id="Subtract" fill="" fill-rule="evenodd" d="M6.09272 1.26474c0.53629 -0.407352 1.27834 -0.407351 1.81463 0.00001l0.66005 0.50137c1.9389 1.47275 3.5998 3.27911 4.9051 5.33443l0.2118 0.3334c0.4228 0.66577 -0.0555 1.5361 -0.8442 1.5361h-0.6913c0.04 0.91907 -0.0102 1.84095 -0.1506 2.75225 -0.1394 0.9056 -0.9186 1.574 -1.8349 1.574H8.25V9.99991c0 -0.69036 -0.55964 -1.25 -1.25 -1.25s-1.25 0.55964 -1.25 1.25v3.29639H3.83675c-0.91623 0 -1.69547 -0.6684 -1.83492 -1.574 -0.14034 -0.9113 -0.19056 -1.83318 -0.15056 -2.75225h-0.69145c-0.78868 0 -1.266967 -0.87034 -0.844143 -1.53611l0.21178 -0.33346C1.83275 5.0452 3.49374 3.23888 5.43258 1.76617l0.66014 -0.50143Z" clip-rule="evenodd" stroke-width="1"></path></g></svg>

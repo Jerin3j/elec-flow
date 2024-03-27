@@ -147,7 +147,9 @@ const EditYourProfile:React.FC = () => {
       if(error){
         alert(error.message)
       }else{
-        navigate(-1)
+        toast("Successfully Log Out!")
+        navigate('/')
+        window.location.reload()
       }
     }
 

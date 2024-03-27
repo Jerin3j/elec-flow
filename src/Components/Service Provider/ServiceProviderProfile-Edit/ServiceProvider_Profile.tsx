@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FaArrowLeft } from 'react-icons/fa6'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { Database } from '../../../Types/supaTypes'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../Reducer/store'
@@ -15,7 +15,7 @@ const ServiceProvider_Profile:React.FC = () => {
   const authUser = useSelector((state: RootState) => state.authUser.userDetails); // get authUser details from redux-state
   const checkuuid = useSelector((state: RootState) => state.authUser?.userDetails?.checkuuid);
   const uuid = useSelector((state: RootState) => state.authUser.userDetails?.uuid); // take the uuid from user details
-    
+  const navigate = useNavigate()
   useEffect(() => {
     async function fetchRecords() {
         try {
@@ -39,8 +39,9 @@ const ServiceProvider_Profile:React.FC = () => {
     const SignOut =async () => {
       const { error } = await supabase.auth.signOut()
       if(!error){
-        toast("Successfully Log Out!")
-      }
+        toast("Successfully Log Out!");
+        navigate('/')
+        window.location.reload()}
     }
  
   return (

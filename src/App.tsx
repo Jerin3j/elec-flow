@@ -162,7 +162,7 @@ const App:React.FC  =() => {
         <BrowserRouter>
         <Helmet>
         <title>ElecFlow - Connecting You with Local Electricians and Plumbers</title>
-        <meta name="description"content="ElecFlow - Solve your problems"/>
+        <meta name="description"content="ElecFlow: Your ultimate solution for quick access to nearby plumbers and electricians. Say goodbye to service hassles with our user-friendly interface. Get your plumbing and electrical issues resolved promptly and efficiently."/>
         <meta name="keywords" content="Emergency Plumbers, Licensed Electricians, Local Plumbing Services, Professional Electricians, 24/7 Plumbing Assistance, Reliable Electrical Contractors, Residential Plumbing Experts, Commercial Electrical Services, Affordable Plumbing Solutions, Experienced Electrician Near Me, Plumbing Repair Services, Electrical Installation Specialists, Certified Plumbers, Skilled Electricians in India, Plumbing Maintenance Contracts, Electrical Wiring Repair, Plumbing Renovation Experts, Electrical Safety Inspections, Drain Cleaning Services, Lighting Fixture Installation, elecflow, how to get nearby plumbers, how to get nearby electricians, electricians near me, plumbers near me, how to do myself, how to solve" />
         <meta name="author" content="Jerin Jerome Justin" />
         <meta property="og:title" content="ElecFlow - Connecting You with Local Electricians and Plumbers" />

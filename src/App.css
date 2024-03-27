@@ -5,6 +5,5 @@
 *{
   padding: 0;
   margin: 0;
-  /* background-color: hsl(0, 0%, 97%); */
-  /* #28CC9E */
+  scroll-behavior: smooth;
 }
