@@ -96,9 +96,8 @@ const Messages = () => {
            </div>
           </div>))}
           </div>:
-          <div className="no-message-text">
-           <h1>No messages</h1>
-          </div>
+            <BarLoader/>
+
         }
       </div>
 

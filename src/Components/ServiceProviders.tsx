@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { addUserIdentity, setCheckUuid } from '../Reducer/Slices/userSlice';
 import SP_SideProfile from './Service Provider/ServiceProviderProfile-Edit/SP_SideProfile';
 import { Helmet } from 'react-helmet';
+import BarLoader from './BarLoader';
 
 const ServiceProviders:React.FC = () => {
   const [serviceProviderData, setServiceProviderData] = useState<Database['public']['Tables']['service-providers']['Row'][] | null>(null)
@@ -74,7 +75,7 @@ const ServiceProviders:React.FC = () => {
         <meta name="twitter:description" content="ElecFlow - Solve your problems" />
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
-      <div  className="ServiceProviders flex flex-col gap-7 h-screen p-5">
+      <div  className="ServiceProviders flex flex-col gap-7 p-5">
         <div className="header__Sp">
         <div className="ServiceProviders__Text ml-3">
             <h1 className="text-2xl md:text-5xl font-poppins font-bold text-center">Service Providers</h1>
@@ -89,7 +90,9 @@ const ServiceProviders:React.FC = () => {
             </select>
         </div>
             {/* Body */}
-     { serviceProviderData?.map(((provider, id) =>(
+            <div className="service-providers__list flex flex-col gap-7 bg-transparent">
+     { serviceProviderData?
+     serviceProviderData?.map(((provider, id) =>(
         <div key={id} className="ServiceProviders__List flex px-3 gap-4 md:gap-8 mb-4 items-center">
          <h1 className='capitalize font-rubik md:text-2xl'>{id+1}</h1>
           <img onClick={()=>viewProvider(provider.uuid)} className='serviceProvider-profile rounded-full h-9 w-9 md:h-16 md:w-16 drop-shadow-xl cursor-pointer' src={provider.profilePicUrl?provider.profilePicUrl: 'https://imgs.search.brave.com/L3Ui8AXfwSRP-j1GgdIlwYFiz5Gj1uz7b_yLJif3ErY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy83/LzdlL0NpcmNsZS1p/Y29ucy1wcm9maWxl/LnN2Zw.svg'} alt={`${provider.first_name} portrait`} />
@@ -105,8 +108,10 @@ const ServiceProviders:React.FC = () => {
               <input type="radio" name="rating-2" className="mask  mask-star-2 bg-orange-400" />
             </div>
         </div>
-        )))}
-       
+        ))):
+        <BarLoader/>
+      }
+       </div>
       {checkUser?
  <SP_SideProfile checkuuid={checkUser} uuid={uuid} refOne={refOne} onClose={handleClose} onUserClick={handleUserClick} />
          :null}

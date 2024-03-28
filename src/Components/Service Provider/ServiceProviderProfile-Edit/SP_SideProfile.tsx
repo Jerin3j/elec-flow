@@ -155,7 +155,11 @@ const SP_SideProfile = ({checkuuid, uuid, refOne, onUserClick, onClose}:any) => 
           <div className="Profile__contact_details flex flex-col items-center md:mt-0 gap-2 md:gap-3">
            <h1 className="SP__Name font-poppins text-2xl md:text-7xl font-bold capitalize">{provider.first_name+" "+provider.last_name}</h1>
            <h1 className="proffesion text-xl md:text-2xl font-lato">Profession - {provider.job}</h1>
-            <div className="User-phone flex gap-3 justify-center items-center">
+           <div className="location__name flex gap-1 items-center justify-center my-2">
+            <img className='w-5 h-5 md:w-8 md:h-8' src={require('../../../Media/Icons/loactionIcon.png')}/>
+            <h1 className="text-sm md:text-2xl font-bold font-popp whitespace-nowrap">{provider.location}</h1>
+          </div> 
+          <div className="User-phone flex gap-3 justify-center items-center">
               <img className='w-5 h-5 md:w-8 md:h-8' src={require('../../../Media/Icons/phoneIcon.png')} alt="" />
               <h1 className="font-lacto md:text-2xl font-semibold">{provider.phonenumber}</h1>
             </div>
