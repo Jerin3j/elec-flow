@@ -22,7 +22,7 @@ https://elec-flow-jerin3j.vercel.app/
   - [License:](#license)
 
 ## About the Project:
-ElecFlow is a web application designed to help users find nearby plumbers and electricians easily. The project was created to address the need for a convenient and efficient way to locate and connect with service professionals in the plumbing and electrical fields.
+ElecFlow revolutionizes home services with its intuitive web platform, blending React.js, Tailwind CSS, and Supabase. Seamlessly connecting users with nearby electricians and plumbers, ElecFlow simplifies home issue resolutions. Featuring real-time messaging and phone call capabilities, ElecFlow ensures swift communication for effective problem-solving. Join ElecFlow today for hassle-free home services.
 
 ## Screenshots:
 
