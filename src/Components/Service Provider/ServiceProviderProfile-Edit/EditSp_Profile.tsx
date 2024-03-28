@@ -189,6 +189,7 @@ const EditSp_Profile = () => {
                limit={5}
                placeSelect={onPlaceSelect}
                suggestionsChange={onSuggectionChange}
+               
                />
           </GeoapifyContext>
            :
@@ -209,6 +210,7 @@ const EditSp_Profile = () => {
         <img className='serviceProvider-profile rounded-full w-40 h-40 md:h-72 md:w-72 drop-shadow-xl' 
          src={blobImage?  URL.createObjectURL(profilePic) : 'https://imgs.search.brave.com/L3Ui8AXfwSRP-j1GgdIlwYFiz5Gj1uz7b_yLJif3ErY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy83/LzdlL0NpcmNsZS1p/Y29ucy1wcm9maWxl/LnN2Zw.svg'} 
         alt="" />
+        <p className="text-sm italic">(upload under 1 mb .jpg, .png)</p>
         </div>
         <div className="user--full_name flex gap-3 md:w-7/12">
           <div className="Edit__firstname flex justify-center items-center border-b border-teal-500 py-2">

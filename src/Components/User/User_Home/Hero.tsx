@@ -10,9 +10,11 @@ import { PostgrestResponse } from '@supabase/supabase-js';
 import supabase from '../../../Config/supabaseClient';
 import { Link, useNavigate } from 'react-router-dom';
 import { forEachTrailingCommentRange } from 'typescript';
+import { useDispatch } from 'react-redux';
+import { changeIsEdited } from '../../../Reducer/Slices/locationSlice';
 
 const Hero:React.FC = () => {
-  
+  const dispatch = useDispatch()
   var hrs = new Date().getHours()
   var greet : string;
   if(hrs < 12){
@@ -48,18 +50,14 @@ const Hero:React.FC = () => {
   fetchRecords();
   }, [uuid])
 
-  const fetchLoc = () =>{
-    if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition(
-      (position)=>{
-        console.log(position)
-      },
-      (error)=>{
-        console.log(error)
-      }
-    )}
-    else{
-      alert("Geolocation is not suppported in this browser")
+  const fetchLoc = async() =>{
+    const permissionStatus = await navigator.permissions.query({ name: 'geolocation' });
+    if (permissionStatus.state === 'prompt' || permissionStatus.state === 'granted') {
+      // Permission is either prompt or already granted, directly request location
+     
+    } else if (permissionStatus.state === 'denied') {
+      // Permission was denied, instruct the user to enable it
+      alert('Location access was denied. Please enable it in your browser settings.');
     }
   }
   return (
@@ -105,7 +103,7 @@ const Hero:React.FC = () => {
         </label>
         </div> 
         <button
-          onClick={()=>navigate('/nearby-providers')}
+          onClick={()=>loc? navigate('/nearby-providers') : fetchLoc()}
           className="self-center bg-transparent flex gap-1 text-3xl font-lato font-bold text-red-600 underline underline-offset-2 mt-7">Locate 
         <BiLocationPlus className='bg-transparent' size={36}/></button>
       </form>

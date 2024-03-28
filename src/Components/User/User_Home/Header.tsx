@@ -144,7 +144,7 @@ const Header:React.FC = () => {
             <ul className="side_menu--options flex items-center flex-col justify-center  gap-7 mt-5 bg-transparent">
             <li className="uppercase font-medium hover:text-[#28CC9E] cursor-pointer border-b-0 w-full bg-white dark:bg-[#0b1215] text-2xl"><Link to={'/'} className='flex gap-5 items-center bg-transparent'><CgHome />Home</Link></li>
             <li className="uppercase font-medium hover:text-[#28CC9E] flex gap-5 items-center cursor-pointer border-b-0 w-full bg-white dark:bg-[#0b1215] text-2xl"><CgInfo />About</li>
-            <li className="uppercase font-medium hover:text-[#28CC9E] items-center cursor-pointer border-b-0 w-full bg-white dark:bg-[#0b1215] text-2xl"><Link to={'/signin'} className='flex gap-5 items-center bg-transparent'><CgLogIn />Login</Link></li>
+            <li className="uppercase font-medium hover:text-[#28CC9E] items-center cursor-pointer border-b-0 w-full bg-white dark:bg-[#0b1215] text-2xl"><Link to={'/signin'} className='flex gap-5 items-center bg-transparent'><CgLogIn />Sign In</Link></li>
             <li className="uppercase font-medium hover:text-[#28CC9E] items-center cursor-pointer border-b-0 w-full bg-white dark:bg-[#0b1215] text-2xl"><Link to={'/register'} className='flex gap-5 items-center bg-transparent'><CgPhone />Register</Link></li>
           </ul>
            )} 

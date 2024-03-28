@@ -65,7 +65,7 @@ const Messages = () => {
   }
   return (
     <div className='Message'>
-      <div className="Message__Mobile flex flex-col h-full max-h-full md:h-screen px-4 sm:px-1 lg:px-32 md:hidden">
+      <div className="Message__Mobile flex flex-col h-screen px-4 sm:px-1 lg:px-32 md:hidden">
       <div className="Message__Mobile--header py-1 flex justify-between border-b-2 ">
           <h1 className="text-3xl font-outfit dark:text-[#F7F7F7]">Messages</h1>
           <div className="Header__Comps flex gap-4 items-center">

@@ -30,7 +30,6 @@ import SP_Dashboard from './Components/Service Provider/ServiceProvider_Home/SP_
 import AccountPrefrences from './Components/User/Userprofile_Edit/AccountPrefrences';
 import Messages from './Components/Messages';
 import NearbyProviders from './Components/NearbyProviders';
-import GetGoogleLoc from './Components/User/Userprofile_Edit/GetGoogleLoc';
 import { BsDeviceHdd } from 'react-icons/bs';
 import BarLoader from './Components/BarLoader';
 import NotFound from './Components/Statuses/NotFound';
@@ -195,7 +194,6 @@ const App:React.FC  =() => {
           <Route path='dashboard' element={<SP_Dashboard/>}/>
           <Route path='chat' element={<Chat/>}/>
           <Route path='messages' element={<Messages/>}/>
-          <Route path='loc' element={<GetGoogleLoc/>}/>
           <Route path='*' element={<NotFound/>}/>
           </Routes>
         </BrowserRouter> 

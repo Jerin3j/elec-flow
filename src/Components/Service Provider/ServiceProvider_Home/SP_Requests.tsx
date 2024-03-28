@@ -38,7 +38,7 @@ const SP_Requests:React.FC = () => {
   }
     fetchData()
    
-  },[uuid])
+  },[uuid, requests])
   const chatTrue = async(fromId: string | null)=>{
     console.log("From id iss passing", fromId)
    try {

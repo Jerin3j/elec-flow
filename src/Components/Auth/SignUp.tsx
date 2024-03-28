@@ -240,7 +240,7 @@ const SignUp:React.FC = () => {
          className="sigin__form--btn btn w-40 md:w-1/2 self-center select-none uppercase btn-accent hover:bg-theme-100 hover:drop-shadow-lg border-none cursor-pointer" data-te-ripple-init
          data-te-ripple-color="light"
          data-te-submit-btn-ref>
-            Sign in
+            Sign Up
          </button>
           <h1 className="Or text-black dark:text-white text-center font-rubik md:text-lg font-semibold">OR</h1>
           <div className="signup__form--sm-btns flex gap-7 justify-center items-center">

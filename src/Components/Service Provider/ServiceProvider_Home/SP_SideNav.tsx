@@ -5,10 +5,38 @@ import { BiHome } from 'react-icons/bi'
 import { BsInbox } from 'react-icons/bs'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../Reducer/store'
+import { changeIsEdited } from '../../../Reducer/Slices/locationSlice'
+import { useDispatch } from 'react-redux'
 
 const SP_SideNav:React.FC = () => {
 
-   const locName = useSelector((state: RootState)=> state?.userLocation?.LocDetails?.currentLocation)
+  const dispatch = useDispatch();
+  const locName = useSelector((state: RootState)=> state?.userLocation?.LocDetails?.currentLocation);
+
+   const fetchUserLocation = async() => {
+      alert('Your actual location will change, if you want to add your current kocation. Go to Edit Profile -> change Location.')
+      const permissionStatus = await navigator.permissions.query({ name: 'geolocation' });
+      if (permissionStatus.state === 'prompt' || permissionStatus.state === 'granted') {
+        // Permission is either prompt or already granted, directly request location
+      dispatch(changeIsEdited(false))
+       
+      } else if (permissionStatus.state === 'denied') {
+        // Permission was denied, instruct the user to enable it
+        alert('Location access was denied. Please enable it in your browser settings.');
+      }
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // Success! Handle the position data
+          const { latitude, longitude } = position.coords;
+        },
+        (error) => {
+          // Handle the error
+          console.error(error.message);
+        }
+      );
+    
+       }
+
    return (
     <div>
 <aside id="default-sidebar" className="hidden lg:flex flex-col fixed top-0 left-0 z-40 w-80 md:p-2 h-screen transition-transform -translate-x-full sm:translate-x-0 border-r bg-gray-50 dark:bg-[#0c0c0c]" aria-label="Sidebar">
@@ -55,7 +83,7 @@ const SP_SideNav:React.FC = () => {
          </li>
       </ul>
    </div>
-   <div className="location__name flex gap-1 items-center justify-center mb-7">
+   <div onClick={fetchUserLocation} className="location__name flex gap-1 items-center justify-center mb-7">
           <img className='w-7 h-7' src={require('../../../Media/Icons/loactionIcon.png')}/>
           <h1 className="text-lg font-bold font-popp whitespace-nowrap">{locName}</h1>
     </div> 
