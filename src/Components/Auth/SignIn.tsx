@@ -33,6 +33,11 @@ const SignIn:React.FC = () => {
     })
   }
 
+  const GithubAuth =async ()=>{
+    supabase.auth.signInWithOAuth({
+      provider: 'github',
+    })
+  }
    const signIn : SubmitHandler<any> = async ()=>{ 
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -135,7 +140,7 @@ const SignIn:React.FC = () => {
              <button className="sigin__form--btn mask mask-squircle uppercase text-black shadow-xl border-none hover:drop-shadow-2x cursor-pointer">
               <img className='w-4 h-4 md:w-7 md:h-7 drop-shadow-md' src="https://www.freepnglogos.com/uploads/facebook-logo-17.jpg" alt="fb_logo" />
              </button>
-             <button className="sigin__form--btn mask mask-squircle uppercase text-black shadow-xl border-none hover:drop-shadow-2x cursor-pointer">
+             <button onClick={GithubAuth} className="sigin__form--btn mask mask-squircle uppercase text-black shadow-xl border-none hover:drop-shadow-2x cursor-pointer">
               <img className='w-4 h-4 md:w-8 md:h-8 drop-shadow-md' src="https://www.freepnglogos.com/uploads/512x512-logo-png/512x512-logo-github-icon-35.png" alt="gh_logo" />
              </button>
           </div>

@@ -41,7 +41,6 @@ import YourProfile from './Components/User/Userprofile_Edit/YourProfile';
 import { Helmet } from 'react-helmet';
 import OurTeam from './Components/OurTeam';
 
-
 const App:React.FC  =() => {
   
  

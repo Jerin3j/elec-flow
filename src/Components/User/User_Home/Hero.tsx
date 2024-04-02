@@ -35,7 +35,7 @@ const Hero:React.FC = () => {
       const {data, error}: PostgrestResponse<Database['public']['Tables']['users']['Row'][] >  = await supabase
       .from("users")
       .select()
-      .eq('uuid',uuid)
+      .eq('uuid','uuid')
       
       if (error) {
         console.error('Error fetching data:', error);
@@ -61,7 +61,7 @@ const Hero:React.FC = () => {
     }
   }
   return (
-  <div className='Hero Section py-8 md:py-12 '>
+  <div className='Her ection py-8 md:py-12 '>
 {    userData?
    ( userData.map(user => 
    (<>
@@ -126,10 +126,10 @@ const Hero:React.FC = () => {
 </div>
 
      {/* desktop view */}
-     <section className='hidden md:flex Hero mx-4 md:mx-10 relative'>
-        <div id='slide1' className="Hero__item-1 -ml-7  flex sm:flex-col sm:px-4 lg:px-0 lg:flex-row justify-evenly items-center bg-black h-[30em] rounded-lg" >
+     <section className='hidden md:flex Hero mx-4 md:mx-10 relative '>
+        <div id='slide1' className="Hero__item-1 sm:-ml-auto flex sm:w-full lg:w-auto sm:flex-col sm:px-4 lg:px-0 lg:flex-row justify-evenly items-center bg-black h-[30em] rounded-lg" >
             <Search/>
-            <div className="Hero__text flex flex-col z-10 gap-4 sm:w-full lg:w-1/2 bg-transparent " >
+            <div className="Hero__text flex flex-col sm:items-center md:justify-normal z-10 gap-4 sm:w-full lg:w-1/2 bg-transparent " >
               <h1 className="text-3xl sm:text-2xl lg:text-5xl shadow-lg font-poppins bg-transparent text-[#f8f8f8] leading-tight">
               Power Up Your Space with Trusted Experts
               </h1>

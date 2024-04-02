@@ -156,10 +156,10 @@ const Header:React.FC = () => {
       <div className="Options hidden md:flex sm:justify-center md:justify-evenly sm:gap-2 lg:gap-56 bg-transparent">
         <div className="Options__text flex sm:gap-1 sm:ml-3 lg:ml-0 lg:gap-6 items-center">
           <h1 className="text-base font-rubik cursor-pointer bg-transparent hover:text-[#28CC9E] active:drop-shadow-xl">Home</h1>
-          <Link to={'/service-providers'}><h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E] hidden lg:flex">Service Providers</h1></Link>
+          <Link to={'/service-providers'}><h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E] whitespace-nowrap">Service Providers</h1></Link>
           <Link to={'/messages'}><h1 className="text-base font-rubik cursor-pointer hover:text-[#28CC9E] hidden lg:flex">Messages</h1></Link>
           <h1 onClick={()=>navigate('/meetourteam')} className="text-base font-rubik cursor-pointer hover:text-[#28CC9E] hidden lg:flex">Our team</h1>
-          <h1 onClick={()=> navigate('/contact')} className="text-base font-rubik cursor-pointer hover:text-[#28CC9E]">Contact</h1>
+          <h1 onClick={()=> navigate('/contact')} className="text-base font-rubik cursor-pointer hover:text-[#28CC9E] hidden lg:flex">Contact</h1>
         </div>
 
        {userData? (

@@ -153,19 +153,19 @@ const SP_SideProfile = ({checkuuid, uuid, refOne, onUserClick, onClose}:any) => 
          <img className='serviceProvider-profile-pic rounded-full w-40 h-40 md:h-52 md:w-52 drop-shadow-xl' ref={imgSrc} src={provider.profilePicUrl?provider.profilePicUrl: 'https://imgs.search.brave.com/L3Ui8AXfwSRP-j1GgdIlwYFiz5Gj1uz7b_yLJif3ErY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy83/LzdlL0NpcmNsZS1p/Y29ucy1wcm9maWxl/LnN2Zw.svg'} alt={`${provider.first_name} portrait`} />
         </div>
           <div className="Profile__contact_details flex flex-col items-center md:mt-0 gap-2 md:gap-3">
-           <h1 className="SP__Name font-poppins text-2xl md:text-7xl font-bold capitalize">{provider.first_name+" "+provider.last_name}</h1>
-           <h1 className="proffesion text-xl md:text-2xl font-lato">Profession - {provider.job}</h1>
+           <h1 className="SP__Name font-poppins text-2xl md:text-5xl font-bold capitalize">{provider.first_name+" "+provider.last_name}</h1>
+           <h1 className="proffesion text-xl font-lato">Profession - {provider.job}</h1>
            <div className="location__name flex gap-1 items-center justify-center my-2">
             <img className='w-5 h-5 md:w-8 md:h-8' src={require('../../../Media/Icons/loactionIcon.png')}/>
-            <h1 className="text-sm md:text-2xl font-bold font-popp whitespace-nowrap">{provider.location}</h1>
+            <h1 className="text-sm md:text-xl font-bold font-popp whitespace-nowrap">{provider.location}</h1>
           </div> 
           <div className="User-phone flex gap-3 justify-center items-center">
               <img className='w-5 h-5 md:w-8 md:h-8' src={require('../../../Media/Icons/phoneIcon.png')} alt="" />
-              <h1 className="font-lacto md:text-2xl font-semibold">{provider.phonenumber}</h1>
+              <h1 className="font-lacto md:text-xl font-semibold">{provider.phonenumber}</h1>
             </div>
             <div className="User-email flex gap-3 justify-center items-center ">
               <img className='w-5 h-5 md:w-8 md:h-8' src={require('../../../Media/Icons/gmailIcon.png')} alt="" />
-              <h1 className="font-lato md:text-2xl font-semibold">{provider.email}</h1>
+              <h1 className="font-lato md:text-xl font-semibold">{provider.email}</h1>
             </div>
             <div className="SP__rating rating rating-md"> 
               <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />

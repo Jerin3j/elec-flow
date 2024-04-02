@@ -80,6 +80,29 @@ const Register:React.FC = () => {
       }
     };
     console.log(job);
+
+    const GoogleAuth =async ()=>{
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+      })
+      const { data:{user}, } = await supabase.auth.getUser()
+      let user_uuid = user?.id
+      console.log(user_uuid);
+      const { data : InsertData, error: InsertError } = await supabase
+        .from('users')
+        .insert([
+      {  'uuid': user_uuid,
+          email,
+          password,
+          location: locName},
+    ])
+    }
+    async function GithubAuth() {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'github',
+      })
+    }
+    
     
     return (
       <section className='Register'>
@@ -242,13 +265,18 @@ const Register:React.FC = () => {
            </button>
             <h1 className="Or text-black dark:text-white text-center font-rubik md:text-lg font-semibold">OR</h1>
             <div className="register__form--sm-btns flex gap-7 justify-center items-center">
-               <button className="sigin__form--btn mask mask-squircle uppercase shadow-xl border-none hover:drop-shadow-2x cursor-pointer">
+               <button 
+                onClick={GoogleAuth}
+               className="sigin__form--btn mask mask-squircle uppercase shadow-xl border-none hover:drop-shadow-2x cursor-pointer">
                <img className='w-5 h-5 md:w-9 md:h-9 ' src="https://www.freepnglogos.com/uploads/google-favicon-logo-20.png" alt='google_logo'/>
                </button>
-               <button className="sigin__form--btn mask mask-squircle uppercase text-black shadow-xl border-none hover:drop-shadow-2x cursor-pointer">
+               <button
+                className="sigin__form--btn mask mask-squircle uppercase text-black shadow-xl border-none hover:drop-shadow-2x cursor-pointer">
                 <img className='w-4 h-4 md:w-7 md:h-7 drop-shadow-md' src="https://www.freepnglogos.com/uploads/facebook-logo-17.jpg" alt="fb_logo" />
                </button>
-               <button className="sigin__form--btn mask mask-squircle uppercase text-black shadow-xl border-none hover:drop-shadow-2x cursor-pointer">
+               <button 
+                 onClick={GithubAuth}
+                 className="sigin__form--btn mask mask-squircle uppercase text-black shadow-xl border-none hover:drop-shadow-2x cursor-pointer">
                 <img className='w-4 h-4 md:w-8 md:h-8 drop-shadow-md' src="https://www.freepnglogos.com/uploads/512x512-logo-png/512x512-logo-github-icon-35.png" alt="gh_logo" />
                </button>
             </div>
