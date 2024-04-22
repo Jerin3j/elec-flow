@@ -81,22 +81,49 @@ const Register:React.FC = () => {
     };
     console.log(job);
 
-    const GoogleAuth =async ()=>{
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-      })
-      const { data:{user}, } = await supabase.auth.getUser()
-      let user_uuid = user?.id
-      console.log(user_uuid);
-      const { data : InsertData, error: InsertError } = await supabase
-        .from('users')
-        .insert([
-      {  'uuid': user_uuid,
-          email,
-          password,
-          location: locName},
-    ])
-    }
+    const GoogleAuth = async () => {
+      try {
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+        });
+    
+        if (error) {
+          throw new Error("Authentication error: " + error.message);
+        }
+    
+        const { data: {user}, error: userError } = await supabase.auth.getUser();
+    
+        if (userError) {
+          throw new Error("Error fetching user details: " + userError.message);
+        }
+    
+        // Extract user details
+        const {  id, email, user_metadata }: any = user;
+        const { full_name, avatar_url } = user_metadata || {};
+    
+        // Insert user details into the users table
+        const { data: InsertData, error: InsertError } = await supabase
+          .from('users')
+          .insert([
+            { 
+              'uuid': user?.id,
+              'email': email || '',
+              'name': full_name || '',
+              'profile_link': avatar_url || '',
+            }
+          ]);
+    
+        if (InsertError) {
+          throw new Error("Error inserting user details: " + InsertError.message);
+        }
+    
+        console.log("User signed in and details inserted successfully!");
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Something went wrong. Please try again later.");
+      }
+    };
+    
     async function GithubAuth() {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'github',

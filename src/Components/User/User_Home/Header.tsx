@@ -167,9 +167,9 @@ const Header:React.FC = () => {
         {locName?
         (<div onClick={fetchUserLocation} className="location__name flex gap-1 items-center mr-2 cursor-pointer">
           <img className='w-8 h-8' src={require('../../../Media/Icons/loactionIcon.png')}/>
-          <h1 className="text-xl font-semibold font-lato whitespace-nowrap ">{locName}</h1>
+          <h1 className="2xl:text-xl font-semibold font-lato whitespace-nowrap ">{locName}</h1>
         </div> ):
-        (<BiCurrentLocation  size={33} className='cursor-pointer'/>)
+        (<BiCurrentLocation onClick={fetchUserLocation} size={33} className='cursor-pointer'/>)
         }
         <label onClick={()=>{setTheme(!theme)}} className="swap swap-rotate bg-transparent cursor-pointer">
           <input type="checkbox" className='bg-transparent theme-controller' value="synthwave"/>

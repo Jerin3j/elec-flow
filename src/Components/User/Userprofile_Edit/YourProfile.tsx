@@ -59,7 +59,7 @@ const YourProfile:React.FC = () => {
     {userData?.length!=0 ?  // Checks userData lenght is not 0 then do mapping 
      userData?.map(user =>(
       
-      <div className='yourProfile h-screen'>
+      <div className='yourProfile h-screen md:h-full'>
       <div className="Header_items flex justify-between items-center p-2 px-4 pt-2 md:p-5 md:px-10">
         <div className="breadcrumbs text-sm ">
           <ul>

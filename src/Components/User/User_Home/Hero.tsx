@@ -35,7 +35,7 @@ const Hero:React.FC = () => {
       const {data, error}: PostgrestResponse<Database['public']['Tables']['users']['Row'][] >  = await supabase
       .from("users")
       .select()
-      .eq('uuid','uuid')
+      .eq('uuid',uuid)
       
       if (error) {
         console.error('Error fetching data:', error);
@@ -61,11 +61,11 @@ const Hero:React.FC = () => {
     }
   }
   return (
-  <div className='Her ection py-8 md:py-12 '>
+  <div className='Hero-section py-8 md:py-12 '>
 {    userData?
    ( userData.map(user => 
    (<>
-   <div className="Hero__with-user circle__blob bg-gradient-to-r from-[#c9ffdb] to-[#f9fdc8] dark:bg-gradient-to-r dark:from-[#101720] dark:to-[#020d19] relative flex flex-col items-start justify-center md:hidden h-64 mx-1">
+   <div className="Hero__with-user circle__blob bg-gradient-to-r from-[#c9ffdb] to-[#f9fdc8] dark:bg-gradient-to-r dark:from-[#101720] dark:to-[#020d19] relative flex flex-col items-start justify-center sm:hidden h-64 mx-1">
    <div className="circle__blob-inner bg-[#4e4376] dark:bg-[#101720] flex flex-col items-start justify-start h-20">
      <h1 className='font-poppins font-semibold text-sm self-start whitespace-nowrap'>{greet},</h1>
      <h1 className="font-poppins font-semibold text-sm capitalize self-end">{user.first_name}</h1>
@@ -87,13 +87,13 @@ const Hero:React.FC = () => {
    </form>
  </div>
      {/* Desktop mode */}
-   <div className="Hero__with-user circle__blob bg-gradient-to-r from-[#c9ffdb] to-[#f9fdc8] dark:bg-gradient-to-tr dark:from-[#020d19] dark:to-[#101720] relative hidden md:flex">
-      <div className="circle__blob-inner bg-[#4e4376] dark:bg-[#000] flex flex-col items-center justify-start w-auto absolute pt10 h-32">
+   <div className="Hero__with-user circle__blob bg-gradient-to-r from-[#c9ffdb] to-[#f9fdc8] dark:bg-gradient-to-tr dark:from-[#020d19] dark:to-[#101720] relative hidden lg:flex">
+      <div className="circle__blob-inner bg-[#4e4376] dark:bg-[#000] flex flex-col items-center justify-start w-auto absolute md:h-24 2xl:h-32">
         <h1 className='font-poppins font-semibold text-4xl -mt-7 self-start whitespace-nowrap'>{greet},</h1>
         <h1 className="font-poppins font-semibold  text-3xl capitalize self-end ml-2">{user.first_name}</h1>
       </div>
       <form className="Selectionn bg-transparent absolute  lg:right-56 top-64 text-black flex flex-col gap-5">
-      <h1 className="text-7xl font-poppins bg-transparent font-bold text-[#0c0c0c] dark:text-[#F7F7F7]">Search Nearby,</h1>
+      <h1 className="md:text-7xl font-poppins bg-transparent font-bold text-[#0c0c0c] dark:text-[#F7F7F7]">Search Nearby,</h1>
        <div className="radio_selection flex justify-evenly bg-transparent text-[#0c0c0c] dark:text-[#F7F7F7]">
         <label htmlFor="plumbers" className='bg-transparent font-outfit text-4xl flex items-center justify-center flex-row'>Plumbers
          <input type="radio" name='radio1' checked/>
@@ -126,11 +126,11 @@ const Hero:React.FC = () => {
 </div>
 
      {/* desktop view */}
-     <section className='hidden md:flex Hero mx-4 md:mx-10 relative '>
-        <div id='slide1' className="Hero__item-1 sm:-ml-auto flex sm:w-full lg:w-auto sm:flex-col sm:px-4 lg:px-0 lg:flex-row justify-evenly items-center bg-black h-[30em] rounded-lg" >
+     <section className='hidden lg:flex Hero mx-4 md:mx-10 relative '>
+        <div id='slide1' className="Hero__item-1 sm:-ml-auto flex sm:w-full 2xl:w-auto sm:flex-col sm:px-4 lg:px-0 lg:flex-row justify-evenly items-center bg-black h-[30em] rounded-lg" >
             <Search/>
             <div className="Hero__text flex flex-col sm:items-center md:justify-normal z-10 gap-4 sm:w-full lg:w-1/2 bg-transparent " >
-              <h1 className="text-3xl sm:text-2xl lg:text-5xl shadow-lg font-poppins bg-transparent text-[#f8f8f8] leading-tight">
+              <h1 className="text-3xl sm:text-2xl md:text-4xl 2xl:text-5xl shadow-lg font-poppins bg-transparent text-[#f8f8f8] leading-tight">
               Power Up Your Space with Trusted Experts
               </h1>
               <q className="text-white bg-transparent tracking-wider font-poppins">

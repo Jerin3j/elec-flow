@@ -187,7 +187,7 @@ const EditYourProfile:React.FC = () => {
 
       userData?.map(user =>(
 
-    <div className='Edit_your_Profile h-screen'>
+    <div className='Edit_your_Profile h-screen md:h-full'>
       <div className="Header_items flex justify-between items-center p-2 px-4 pt-2 md:p-5 md:px-10">
       <div className="breadcrumbs text-sm ">
           <ul>  
@@ -223,7 +223,7 @@ const EditYourProfile:React.FC = () => {
                />
           </GeoapifyContext>
            :
-           <h1 className="font-rubik md:font-semibold text-sm md:text-lg whitespace-nowrap ">{user.location ? user.location  : 'console.log("Do location function")'}</h1>
+           <h1 className="font-rubik md:font-semibold text-sm md:text-lg whitespace-nowrap ">{user.location ? user.location  : 'Enter your current location'}</h1>
           }
             </div>
          </div>

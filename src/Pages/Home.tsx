@@ -60,7 +60,7 @@ const Home = () => {
       </>
       ) : (                                 // if user loggined
       <div className=' scroll-smooth'>  
-      <div className='px-4 sm:px-1 lg:px-64'>
+      <div className='px-4 sm:px-1 md:px-10 2xl:px-64'>
       <Header/>
       <Hero/>
       <Services/>

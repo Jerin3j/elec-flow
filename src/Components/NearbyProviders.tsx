@@ -97,14 +97,17 @@ useEffect(()=>{
         <div className="header__Sp">
         <div className="ServiceProviders__Text ml-3">
             <h1 className="text-2xl md:text-5xl font-poppins font-bold text-center">Nearby Providers</h1>
-            {nearbyProviders == null && 
+            {nearbyProviders !== null ? 
              <p className="mx-auto mt-4 max-w-3xl text-xl text-gray-600 dark:text-slate-400 text-center">Here is the list of plumbers and electricians they were near to you.</p> 
+             :
+             <p className="font-bold font-7xl mt-10 text-center text-red-700">Sorry, nobody near to you : (</p>
             }
         </div>
         </div>
             {/* Body */}
             {
-        nearbyProviders && nearbyProviders.map((provider, index)=>(
+        nearbyProviders && 
+        nearbyProviders.map((provider, index)=>(
         <div key={index} className="NearbyProviders__List flex px-3 gap-4 md:gap-8 mb-4 items-center">
          <h1 className='capitalize font-rubik md:text-2xl'>{index+1}</h1>
          {/* <Link to={'/sp-profile'}> */}
@@ -126,9 +129,8 @@ useEffect(()=>{
             </div>
         </div>))}
        
-      {checkUser?
- <SP_SideProfile checkuuid={checkUser} uuid refOne={refOne} onClose={handleClose} onUserClick={handleUserClick} />
-         :null}
+      {checkUser && <SP_SideProfile checkuuid={checkUser} uuid refOne={refOne} onClose={handleClose} onUserClick={handleUserClick} />
+}
       </div>
     </section>
   )
