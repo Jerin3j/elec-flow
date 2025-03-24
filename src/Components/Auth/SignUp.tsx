@@ -42,34 +42,48 @@ const SignUp:React.FC = () => {
 
   const {register, handleSubmit, formState: { errors }} = useForm<FormData>({resolver: yupResolver(schema)})
 
-  const Sign_Up: SubmitHandler<any> = async()=> {
+  const Sign_Up: SubmitHandler<any> = async () => {
     try {
       const { data, error } = await supabase.auth.signUp({ 
         email,
         password,
-        options: {data: {password,}
-      } 
+        options: { data: {} } // Removed password from metadata
       });
-
-      // Get new user details
-      const { data:{user}, } = await supabase.auth.getUser()
-      let user_uuid = user?.id
-      console.log(user_uuid);
-      
-      // Insert new user data to 'users' table with auth uuid
-      const { data: InsertData, error: InsertError } = await supabase
+  
+      if (error) {
+        console.error("Signup error:", error);
+        return;
+      }
+  
+      const user = data.user;
+      if (!user) {
+        console.error("User signup successful, but no user data received.");
+        return;
+      }
+  
+      console.log("User UUID:", user.id);
+  
+      // Insert user data into the 'users' table
+      const { error: insertError } = await supabase
         .from('users')
-        .insert([{ 'uuid': user_uuid, 'first_name': firstName, 'last_name': lastName, phonenumber, email, password, location: locName}])
-        .select();
-
-        if (InsertError) {
-          console.error('Error inserting user data:', InsertError);
-        } else {
-          console.log('Inserted user data:', InsertData);
-          navigate('/')
-          window.location.reload()
-        }
-        
+        .insert([
+          {
+            uuid: user.id,
+            first_name: firstName,
+            last_name: lastName,
+            phonenumber,
+            email,
+            location: locName,
+          }
+        ]);
+  
+      if (insertError) {
+        console.error("Error inserting user data:", insertError);
+      } else {
+        console.log("User data inserted successfully!");
+        navigate('/');
+        window.location.reload();
+      }
     } catch (error) {
       console.error('Signup failed:', error);
     }
@@ -82,50 +96,95 @@ const SignUp:React.FC = () => {
       });
   
       if (error) {
-        throw new Error("Authentication error: " + error.message);
+        console.error("Google Auth error:", error);
+        return;
       }
   
-      const { data: {user}, error: userError } = await supabase.auth.getUser();
-  
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
       if (userError) {
-        throw new Error("Error fetching user details: " + userError.message);
+        console.error("Error fetching user details:", userError);
+        return;
       }
   
-      // Extract user details
-      const {  id, email, user_metadata }: any = user;
+      if (!user) {
+        console.error("Google authentication succeeded, but no user data returned.");
+        return;
+      }
+  
+      console.log("Google User ID:", user.id);
+  
+      const { id, email, user_metadata } = user;
       const { full_name, avatar_url } = user_metadata || {};
   
-      // Insert user details into the users table
-      const { data: InsertData, error: InsertError } = await supabase
+      const { error: insertError } = await supabase
         .from('users')
-        .insert([
-          { 
-            'uuid': user?.id,
-            'email': email || '',
-            'name': full_name || '',
-            'profile_link': avatar_url || '',
+        .upsert([
+          {
+            uuid: id,
+            email: email || '',
+            name: full_name || '',
+            profile_link: avatar_url || '',
           }
-        ]);
+        ], { onConflict: 'uuid' });
   
-      if (InsertError) {
-        throw new Error("Error inserting user details: " + InsertError.message);
+      if (insertError) {
+        console.error("Error inserting Google user details:", insertError);
+      } else {
+        console.log("Google user inserted successfully!");
       }
-  
-      console.log("User signed in and details inserted successfully!");
     } catch (error) {
-      console.error("Error:", error);
-      alert("Something went wrong. Please try again later.");
+      console.error("Google Auth error:", error);
     }
   };
   
-
   async function GithubAuth() {
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'github',
-    })
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'github',
+      });
+  
+      if (error) {
+        console.error("GitHub Auth error:", error);
+        return;
+      }
+  
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (userError) {
+        console.error("Error fetching GitHub user details:", userError);
+        return;
+      }
+  
+      if (!user) {
+        console.error("GitHub authentication succeeded, but no user data returned.");
+        return;
+      }
+  
+      console.log("GitHub User ID:", user.id);
+  
+      const { id, email, user_metadata } = user;
+      const { full_name, avatar_url } = user_metadata || {};
+  
+      const { error: insertError } = await supabase
+        .from('users')
+        .upsert([
+          {
+            uuid: id,
+            email: email || '',
+            name: full_name || '',
+            profile_link: avatar_url || '',
+          }
+        ], { onConflict: 'uuid' });
+  
+      if (insertError) {
+        console.error("Error inserting GitHub user details:", insertError);
+      } else {
+        console.log("GitHub user inserted successfully!");
+      }
+    } catch (error) {
+      console.error("GitHub Auth error:", error);
+    }
   }
   
-
   return (
     <section className='Sign-Up'>
     <div className="signup flex flex-col md:flex-row flex-wrap items-center justify-evenly py-4 md:py-4 md:h-screen">

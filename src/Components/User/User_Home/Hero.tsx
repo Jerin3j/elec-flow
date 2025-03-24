@@ -29,6 +29,8 @@ const Hero:React.FC = () => {
   const uuid = useSelector((state:RootState) => state.authUser.userDetails?.uuid)
   const loc = useSelector((state:RootState) => state.userLocation?.LocDetails?.currentLocation)
   
+  console.log("Hero section uuid", uuid);
+  console.log("HeroSectionUserData", userData);
   useEffect(()=>{
     const fetchRecords = async()=>{
     try{
@@ -36,6 +38,7 @@ const Hero:React.FC = () => {
       .from("users")
       .select()
       .eq('uuid',uuid)
+      console.log("Geting Hero data", data)
       
       if (error) {
         console.error('Error fetching data:', error);
